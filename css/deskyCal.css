@@ -4,6 +4,9 @@
 .desky-cal-hidden {
 	display: none !important;
 }
+.deskycal {
+	width: min-content;
+}
 
 .deskycal input {
 	cursor: pointer;
