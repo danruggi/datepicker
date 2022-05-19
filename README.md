@@ -21,7 +21,7 @@ Easy usage:
 1. Include CSS and JS  
 
 ```
-<link rel='stylesheet' href='https://cdn.jsdelivr.net/gh/danruggi/datepicker/css/deskyCal.css' onload="this.media='all'">
+<link rel='stylesheet' href='https://cdn.jsdelivr.net/gh/danruggi/datepicker/css/deskyCal.css'>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/danruggi/datepicker/js/deskyCal.js"></script>
 ```
   
