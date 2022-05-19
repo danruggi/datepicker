@@ -131,6 +131,7 @@
 }
 
 .desky-cal-container .desky-cal-close {
+	font-family: sans-serif;
 	position: absolute;
 	left: 10px; 
 	top: 10px;
@@ -145,7 +146,7 @@
 	width: 200px; 
 	grid-template-columns: 1fr;
 }
-.desky-cal-container.single .desky-cal-close{font-size: 1em; }
+/* .desky-cal-container.single .desky-cal-close{font-size: 1em; } */
 .desky-cal-container.single .desky-cal-daylist {
 	line-height: 1rem;
 	margin: 0.8rem 0 0 0;
@@ -220,9 +221,9 @@
 
 
 	.desky-cal-container .desky-cal-right-bottom > div {
-		font-size: 22px;
+		font-size: 24px;
 		line-height: 24px;
-		gap: 8px;
+		gap: 11px;
 	}
 
 	.desky-cal-container .desky-cal-right-header {
@@ -237,6 +238,11 @@
 		color: #444; 
 	}
 	
-	
+	.desky-cal-container .desky-cal-close {
+		left: 10px; 
+		top: 15px;
+		font-size: 40px;
+	}
+
 	/* .room-card-container {width: 100%;} */
 }
