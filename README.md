@@ -1,7 +1,10 @@
 # datepicker deskycal
-##### Derivate from a hotels software at [deskydoo](https://www.deskydoo.com)  
+
   
    
+![Screenshot](https://danruggi.github.io/datepicker/assets/deskycal_presentation_874.webp)
+##### Derivate from a hotels software at [deskydoo](https://www.deskydoo.com)
+  
 **Ultralight (6.3KB) datepicker vanilla JS CSS with no dependencies**  
 
 Click on the input fields downthere to see the examples  
@@ -28,13 +31,8 @@ Easy usage:
 2. Create any field with an unique ID in the page  
 ```
 <input id='unique_id'>
-
-// OR, can also be a button
-<button id='unique_id'></button>
-
-// OR, can also be an img, OR any element
-<img src='your_img.jpg' id='unique_id'></img>
 ```  
+  
 3. Init the calendar with
 ```
 <script>
@@ -44,7 +42,11 @@ Easy usage:
 
 ![Screenshot](https://danruggi.github.io/datepicker/assets/screen1.png)
 
-### Examples
+### Examples  
+  
+## You can find working examples here >> [Demo Page](https://danruggi.github.io/datepicker/)
+  
+    
 ###### Example 1: Two columns
 Two column is default Just call the function passing just the id
 ```
