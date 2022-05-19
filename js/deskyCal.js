@@ -4,11 +4,8 @@
 // 2021 08 28 ver. 2.0 rev 1
 // 2021 10 01 ver. 2.5 -- Adding mobile full page support 
 // 2022 05 16 ver. 3.0 -- Make it Independent 
+// 2022 05 16 ver. 3.5 -- Working on github 
 ////////////////////////////////////////////
-
-/// Version Variable
-const deskyCalVersion = "3.0";
-///////////
 
 const deskyOpts = {};
 
