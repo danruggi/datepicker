@@ -104,7 +104,7 @@ function insertSchema(parent, id) {
 	el+= "			</div>";
 	// AnyDate
 	if (deskyOpts[id].any_date) {
-		el+="			<span id='calsel_anyDate_"+id+"' class='curr-month cal-sel-day' onClick='dayClick(this)'>Any Date</span>";
+		el+="			<span data-day='calsel_anyDate_"+id+"' class='curr-month cal-sel-day' onClick='dayClick(this)'>Any Date</span>";
 	}
 	// Close right
 	el+= "		</div>"; 
