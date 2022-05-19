@@ -42,7 +42,7 @@ Easy usage:
 </script>
 ```
 
-![Screenshot](http://localhost:81/datepicker/assets/screen1.png)
+![Screenshot](https://danruggi.github.io/datepicker/assets/screen1.png)
 
 ### Examples
 ###### Example 1: Two columns
