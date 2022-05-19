@@ -7,10 +7,10 @@
 ////////////////////////////////////////////
 
 /// Version Variable
-var deskyCalVersion = "3.0";
+const deskyCalVersion = "3.0";
 ///////////
 
-var deskyOpts = {};
+const deskyOpts = {};
 
 function initDeskyCalendar(id, mode = 'double', in_date = null, any_date = false, next_input = null, disabled_before=null, scroll=false, callback = null) {
 	let cb;
@@ -21,6 +21,7 @@ function initDeskyCalendar(id, mode = 'double', in_date = null, any_date = false
 	}
 
 	/// Check Inputs
+	if (mode == null) mode="double";	
 	if (!['double', 'single'].includes(mode)) console.log('[deskyCal] "mode" not valid; "single" or "double" are valid');
 	if (in_date < 0) console.log('[deskyCal] timestamp can\'t be negative');
 
