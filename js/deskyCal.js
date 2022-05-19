@@ -138,7 +138,7 @@ function drawCalSel(calParent, inputId, curr_year, curr_month) {
 	// // let inputId = calParent.id.split("_").slice(2).join("_");
 	// console.log(calParent.id);
 	// console.log(inputId);
-	console.log(curr_month+" "+curr_year);
+	// console.log(curr_month+" "+curr_year);
 	let today = new Date();
 	let tdate = new Date();
 	let out="";
