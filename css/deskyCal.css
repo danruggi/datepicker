@@ -1,0 +1,237 @@
+/* Main */
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap');
+
+.desky-cal-hidden {
+	display: none !important;
+}
+
+.deskycal input {
+	cursor: pointer;
+	height: 22px;
+	padding-left: 25px;
+	background: url("../icons/calendar.png") no-repeat left;
+	background-position-x: 1px;
+	background-size: 20px;
+	color: #999;
+	background-color: #fcfcfc;
+}
+
+.deskycal input:hover {
+	background-color: #ffffd6;
+}
+
+.desky-cal-container {
+	font-family: "Roboto Condensed";
+	color: #ddd;
+	position: absolute;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 0;
+	user-select: none;
+	border: 1px solid #7b7a7a;
+	background-color: #0c0d2b;
+	border-radius: 5px;
+	width: 400px; 
+	z-index: 9; /*Back of the dark container*/
+	overflow: auto;
+} 
+
+.desky-cal-container .left {
+	border-right: 1px solid #333;
+	margin: 2em 0; 
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	text-align: center;
+}
+
+.desky-cal-container .right {
+	position: relative;
+	margin: 2em 0 ;
+	text-align: center;
+}
+.desky-cal-container .left-day {
+	font-size: 4em;
+	line-height: 1em;
+	cursor: pointer;
+}
+.desky-cal-container .left-today {
+	font-size: 0.8em;
+}
+
+
+.desky-cal-container .desky-arrow {
+	color: white;
+	font-weight: 800;
+	cursor: pointer;
+}
+
+.desky-cal-container .desky-cal-month-name,
+.desky-cal-container .desky-cal-dow-list {
+	color: coral;
+}
+
+
+
+.desky-cal-container .desky-cal-right-header {
+	display: grid;
+	grid-template-columns: 1fr 3fr 1fr; 
+	gap:0;
+	line-height: 35px;
+}
+
+.desky-cal-container .desky-cal-right-bottom{
+	margin: 0.1em 1em;
+}
+.desky-cal-container .desky-cal-right-bottom > div {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr; 
+	gap:0;
+	font-size: 0.8em;
+
+}
+.desky-cal-container .desky-cal-right-bottom div.desky-cal-dow-list {
+	border-bottom: 1px solid #333;
+	margin: 3px 0;
+}
+
+.desky-cal-container .desky-cal-daylist {
+	line-height: 1.4rem;
+	margin: 0.8rem 0 0 0;
+}
+
+.desky-cal-container .last-month, 
+.desky-cal-container .next-month,
+.desky-cal-container .curr-month.disabled {
+	color: #444; 
+}
+
+.desky-cal-container .curr-month:not(.disabled) {
+	color: #bbb;  
+	cursor: pointer;
+}
+
+.desky-cal-container .curr-month.today {
+	background-color: #763000;
+	color: #eee;
+	border-radius: 7px;
+}
+
+.desky-cal-container .curr-month:not(.disabled):hover, 
+.desky-cal-container .desky-arrow:hover, 
+.desky-cal-container .desky-cal-close:hover {
+	color: coral;
+}
+
+.desky-cal-container .left:hover {
+	color: #bbb;
+}
+
+.desky-cal-container .desky-cal-close {
+	position: absolute;
+	left: 10px; 
+	top: 10px;
+	font-size: 1.5em;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+
+/* Smaller */
+.desky-cal-container.single {
+	width: 200px; 
+	grid-template-columns: 1fr;
+}
+.desky-cal-container.single .desky-cal-close{font-size: 1em; }
+.desky-cal-container.single .desky-cal-daylist {
+	line-height: 1rem;
+	margin: 0.8rem 0 0 0;
+}
+
+/* White */
+.desky-cal-container.white {background-color: #eaeaea; }
+.desky-cal-container.white .last-month {color: #aaa; }
+.desky-cal-container.white .curr-month {color: #666; cursor: pointer; }
+.desky-cal-container.white .arrow {color: #666; }
+
+.desky-cal-container .right .clicked {	
+	background-color: coral;
+	color: #333 !important;
+	border-radius: 7px;
+}
+
+@media only screen and (max-width: 600px) {
+	.deskycal input {
+		font-size: 16px;
+	}
+	.desky-cal-container {
+		grid-template-columns: 1fr;
+	}
+	.desky-cal-container .left {
+		display: none !important;
+	}
+
+}
+
+@media only screen and (max-width: 1100px) {
+	.desky-cal-container .curr-month:hover, .desky-cal-container .desky-arrow:hover, .desky-cal-container .desky-cal-close:hover {
+		color: #333;
+	}
+	.desky-dark-container {
+		position: absolute;
+		top: 0;
+		left: 0;
+		background-color: #00000088;
+		width: 100vw;
+		height: 100%;
+	}
+	.desky-cal-container, .desky-cal-container.single {
+		max-width: 500px;
+		width: 90vw;
+		max-height: 88vh;
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		font-size: 22px;
+		height: 400px;
+		/* line-height: 25px; */
+	}
+
+/* 	.desky-cal-container.single {
+		width: 90vw;
+	}
+ */
+	.desky-cal-container .right {
+		margin: auto 1em;
+	}
+	.desky-cal-container .left {
+		border-right: none;
+		margin: 10px auto; 
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		text-align: center;
+	}
+
+	
+
+	.desky-cal-container .desky-cal-right-bottom > div {
+		font-size: 22px;
+		line-height: 28px;
+	}
+	.desky-cal-container .desky-cal-right-header {
+		line-height: 55px;
+		font-size: 22px;
+	}
+	.desky-arrow {
+		font-size: 30px;
+	}
+
+	.desky-cal-container .last-month, .desky-cal-container .next-month  {
+		color: #444; 
+	}
+	
+	
+	/* .room-card-container {width: 100%;} */
+}
