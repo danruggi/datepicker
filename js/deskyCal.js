@@ -12,7 +12,7 @@ const deskyCalVersion = "3.0";
 
 const deskyOpts = {};
 
-function initDeskyCalendar(id, mode = 'double', in_date = null, any_date = false, next_input = null, disabled_before=null, scroll=false, callback = null) {
+function initDeskyCalendar(id, mode = 'double', in_date = null, any_date = false, next_input = null, disabled_before=null, disabled_after=null, scroll=false, callback = null) {
 	let cb;
 	let input = document.getElementById(id);
 	if (input == null) {
@@ -26,7 +26,7 @@ function initDeskyCalendar(id, mode = 'double', in_date = null, any_date = false
 	if (in_date < 0) console.log('[deskyCal] timestamp can\'t be negative');
 
 	/// Create Options Object
-	deskyOpts[id] = {'mode':mode, 'in_date':in_date, 'any_date':any_date, 'next_input':next_input, 'disabled_before':disabled_before, 'callback': callback, 'scroll':scroll};
+	deskyOpts[id] = {'mode':mode, 'in_date':in_date, 'any_date':any_date, 'next_input':next_input, 'disabled_before':disabled_before, 'disabled_after':disabled_after, 'callback': callback, 'scroll':scroll};
 
 	let containerHtml = "<div id='deskycal_container_"+id+"' class='deskycal'></div>";
 	
@@ -204,7 +204,11 @@ function drawCalSel(calParent, inputId, curr_year, curr_month) {
 		tid = "calsel_"+curr_year+"_"+humanCurrMonth+"_"+tdate.getDate();
 		let extraClass="";
 		if (todayTid == tid) extraClass="today";
+		/// disabled before
 		if (tdate.getTime() < deskyOpts[inputId].disabled_before) extraClass="disabled";
+		/// disabled after
+		if (tdate.getTime() > deskyOpts[inputId].disabled_after && deskyOpts[inputId].disabled_after != null) extraClass="disabled";
+
 		out += "<span data-day='"+tid+"' class='curr-month cal-sel-day "+extraClass+"' onClick='dayClick(this)'>"+tdate.getDate()+"</span>";
 		// console.log("this: "+tdate);
 	}
@@ -288,7 +292,7 @@ function dayClick(el) {
 function showCalSel(e, el){
 	e.stopPropagation();
 	// closeCalSel();
-	console.log(el);
+	// console.log(el);
 	let par = el.parentNode;
 	let cls = par.querySelector('.desky-dark-container');
 	// let cls = document.getElementById('cal_'+el.id);
@@ -297,7 +301,7 @@ function showCalSel(e, el){
 	// let cls = par.querySelector('.desky-cal-container');
 	cls.classList.toggle('desky-cal-hidden');
 
-	if (deskyOpts[el.id].scroll) cls.scrollIntoView();
+	if (deskyOpts[el.id].scroll) cls.scrollIntoView({ behavior: 'smooth', block: 'center' });
 	
 	document.addEventListener('mouseup',deskyCalSelEvent)
 	return;
