@@ -218,12 +218,13 @@
 		text-align: center;
 	}
 
-	
 
 	.desky-cal-container .desky-cal-right-bottom > div {
 		font-size: 22px;
-		line-height: 28px;
+		line-height: 24px;
+		gap: 8px;
 	}
+
 	.desky-cal-container .desky-cal-right-header {
 		line-height: 55px;
 		font-size: 22px;

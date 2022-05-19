@@ -81,7 +81,7 @@ function insertSchema(parent, id) {
 	el+= "		<span class='desky-cal-close' onclick='closeCalSel()'>X</span>"; 
 	if (deskyOpts[id].mode == "double") {
 		// Left -- Big Date
-		el+= "		<div class='flex-container flex-col centered left' onClick='dayClick(this)'>";
+		el+= "		<div class='left' onClick='dayClick(this)'>";
 		el+= "			<span class='left-today'>Today</span> <span class='left-day'></span> <span class='left-mon'></span>";
 		el+= "		</div>";
 	}
@@ -295,11 +295,22 @@ function showCalSel(e, el){
 	// let cls = document.getElementById('cal_'+el.id);
 	// let par = getParentByClass(cls, 'date-selector');
 	
-	// let cls = par.querySelector('.desky-cal-container');
 	cls.classList.toggle('desky-cal-hidden');
 
 	if (deskyOpts[el.id].scroll) cls.scrollIntoView({ behavior: 'smooth', block: 'center' });
 	
+	///if calendar goes out of borders, position against border
+	let con = par.querySelector('.desky-cal-container');
+	let bottomPos = con.getBoundingClientRect()['bottom'];
+	let rightPos = con.getBoundingClientRect()['right'];
+	let windowHeight = window.innerHeight;
+	let windowWidth = window.innerWidth;
+	console.log(rightPos+" "+windowWidth);
+	if (rightPos > windowWidth) {
+		con.style.right = "2px";
+		// cls.style.left = "auto"
+	}
+
 	document.addEventListener('mouseup',deskyCalSelEvent)
 	return;
 }
