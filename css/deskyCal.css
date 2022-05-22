@@ -1,6 +1,23 @@
 /* Main */
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap');
 
+:root {
+  --deskycal-main-color: coral;
+  --deskycal-today-bg-color: #763000;
+  --deskycal-today-right-color: #eee;
+  --deskycal-today-left-hover-color: #bbb;
+  --deskycal-base-bg-color: #0c0d2b;
+  --deskycal-dates-color: #ddd ;
+  --deskycal-disabled-dates-color: #444;
+  --deskycal-border-width: 1px;
+  --deskycal-border-radius: 5px;
+  --deskycal-border-color: #7b7a7a;
+  --deskycal-font-size: 16px;
+  --deskycal-line-height: 20px;
+  --deskycal-width-double: 400px;
+  --deskycal-width-single: 200px;
+}
+
 .desky-cal-hidden {
 	display: none !important;
 }
@@ -25,16 +42,17 @@
 
 .desky-cal-container {
 	font-family: "Roboto Condensed";
-	color: #ddd;
+	font-size: var(--deskycal-font-size);
+	color: var(--deskycal-dates-color);
 	position: absolute;
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	gap: 0;
 	user-select: none;
-	border: 1px solid #7b7a7a;
-	background-color: #0c0d2b;
-	border-radius: 5px;
-	width: 400px; 
+	border: var(--deskycal-border-width) solid var(--deskycal-border-color);
+	background-color: var(--deskycal-base-bg-color);
+	border-radius: var(--deskycal-border-radius);
+	width: var(--deskycal-width-double);
 	z-index: 9; /*Back of the dark container*/
 	overflow: auto;
 } 
@@ -64,14 +82,14 @@
 
 
 .desky-cal-container .desky-arrow {
-	color: white;
+	/* color: white; */
 	font-weight: 800;
 	cursor: pointer;
 }
 
 .desky-cal-container .desky-cal-month-name,
 .desky-cal-container .desky-cal-dow-list {
-	color: coral;
+	color: var(--deskycal-main-color);
 }
 
 
@@ -98,36 +116,36 @@
 	margin: 3px 0;
 }
 
-.desky-cal-container .desky-cal-daylist {
-	line-height: 1.4rem;
+.desky-cal-container .desky-cal-day-list {
+	line-height: var(--deskycal-line-height);
 	margin: 0.8rem 0 0 0;
 }
 
 .desky-cal-container .last-month, 
 .desky-cal-container .next-month,
 .desky-cal-container .curr-month.disabled {
-	color: #444; 
+	color: var(--deskycal-disabled-dates-color); 
 }
 
 .desky-cal-container .curr-month:not(.disabled) {
-	color: #bbb;  
+	color: var(--deskycal-dates-color);  
 	cursor: pointer;
 }
 
 .desky-cal-container .curr-month.today {
-	background-color: #763000;
-	color: #eee;
+	background-color: var(--deskycal-today-bg-color);
+	color: var(--deskycal-today-right-color);
 	border-radius: 7px;
 }
 
 .desky-cal-container .curr-month:not(.disabled):hover, 
 .desky-cal-container .desky-arrow:hover, 
 .desky-cal-container .desky-cal-close:hover {
-	color: coral;
+	color: var(--deskycal-main-color);
 }
 
 .desky-cal-container .left:hover {
-	color: #bbb;
+	color: var(--deskycal-today-left-hover-color);
 }
 
 .desky-cal-container .desky-cal-close {
@@ -143,7 +161,7 @@
 
 /* Smaller */
 .desky-cal-container.single {
-	width: 200px; 
+	width: var(--deskycal-width-single);
 	grid-template-columns: 1fr;
 }
 /* .desky-cal-container.single .desky-cal-close{font-size: 1em; } */
@@ -152,14 +170,8 @@
 	margin: 0.8rem 0 0 0;
 }
 
-/* White */
-.desky-cal-container.white {background-color: #eaeaea; }
-.desky-cal-container.white .last-month {color: #aaa; }
-.desky-cal-container.white .curr-month {color: #666; cursor: pointer; }
-.desky-cal-container.white .arrow {color: #666; }
-
 .desky-cal-container .right .clicked {	
-	background-color: coral;
+	background-color: var(--deskycal-main-color);
 	color: #333 !important;
 	border-radius: 7px;
 }
@@ -235,7 +247,7 @@
 	}
 
 	.desky-cal-container .last-month, .desky-cal-container .next-month  {
-		color: #444; 
+		color: var(--deskycal-disabled-dates-color); 
 	}
 	
 	.desky-cal-container .desky-cal-close {
