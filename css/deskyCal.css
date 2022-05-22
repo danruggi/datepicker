@@ -29,7 +29,7 @@
 	cursor: pointer;
 	height: 22px;
 	padding-left: 25px;
-	background: url("../icons/calendar.png") no-repeat left;
+	background: url("https://cdn.jsdelivr.net/gh/danruggi/datepicker@v4.0/icons/calendar.png") no-repeat left;
 	background-position-x: 1px;
 	background-size: 20px;
 	color: #999;
