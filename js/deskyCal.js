@@ -305,7 +305,7 @@ function showCalSel(e, el){
 	let rightPos = con.getBoundingClientRect()['right'];
 	let windowHeight = window.innerHeight;
 	let windowWidth = window.innerWidth;
-	console.log(rightPos+" "+windowWidth);
+	// console.log(rightPos+" "+windowWidth);
 	if (rightPos > windowWidth) {
 		con.style.right = "2px";
 		// cls.style.left = "auto"

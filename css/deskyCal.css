@@ -98,7 +98,8 @@
 	display: grid;
 	grid-template-columns: 1fr 3fr 1fr; 
 	gap:0;
-	line-height: 35px;
+	line-height: var(--deskycal-line-height);
+	/* line-height: 35px; */
 }
 
 .desky-cal-container .desky-cal-right-bottom{
