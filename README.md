@@ -3,7 +3,8 @@
   
    
 ![Screenshot](https://danruggi.github.io/datepicker/assets/deskycal_presentation_874.webp)
-##### Derivate from a hotels software at [deskydoo](https://www.deskydoo.com)
+### You can find working examples here >> [Demo Page](https://danruggi.github.io/datepicker/)
+Derivate from a hotels software at [deskydoo](https://www.deskydoo.com)
   
 **Ultralight (6.3KB) datepicker vanilla JS CSS with no dependencies**  
 
@@ -44,7 +45,7 @@ Easy usage:
 
 ### Examples  
   
-## You can find working examples here >> [Demo Page](https://danruggi.github.io/datepicker/)
+
   
     
 ###### Example 1: Two columns
