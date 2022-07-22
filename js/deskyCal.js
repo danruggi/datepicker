@@ -5,6 +5,7 @@
 // 2021 10 01 ver. 2.5 -- Adding mobile full page support 
 // 2022 05 16 ver. 3.0 -- Make it Independent 
 // 2022 05 16 ver. 3.5 -- Working on github 
+// 2022 07 22 ver. 4.2 -- UTC dates 
 ////////////////////////////////////////////
 
 const deskyOpts = {};
@@ -38,13 +39,13 @@ function initDeskyCalendarAll() {
 			if (in_date > 1000) {
 				// console.log("mills "+mills)
 				inDate.setTime(in_date);
-				curr_month = inDate.getMonth();
-				curr_year = inDate.getFullYear();
+				curr_month = inDate.getUTCMonth();
+				curr_year = inDate.getUTCFullYear();
 				deskyOpts[k].in_date=inDate.getTime();
 			}
 			
 			// date format just in US format right now 
-			newInput.value = inDate.getFullYear()+"-"+String(parseInt(inDate.getMonth())+1).padStart(2,"0")+"-"+String(inDate.getDate()).padStart(2,'0')
+			newInput.value = inDate.getUTCFullYear()+"-"+String(parseInt(inDate.getUTCMonth())+1).padStart(2,"0")+"-"+String(inDate.getUTCDate()).padStart(2,'0')
 		} else newInput.value = "Select";
 
 		// Prepare disabled dates, if any. Will be used in draw schema
@@ -52,7 +53,7 @@ function initDeskyCalendarAll() {
 		let disabled_before = deskyOpts[k]['disabled_before'];
 		if (disabled_before > 1000) {
 			disDate.setTime(disabled_before);
-			deskyOpts[k].disabled_before=disDate.getTime()+86400000;
+			deskyOpts[k].disabled_before=disDate.getTime();
 		}
 
 		// init and draw calendars with inDate month and year
@@ -109,20 +110,20 @@ function initDeskyCalendar(id, mode = 'double', in_date = null, any_date = false
 		if (in_date > 1000) {
 			// console.log("mills "+mills)
 			inDate.setTime(in_date);
-			curr_month = inDate.getMonth();
-			curr_year = inDate.getFullYear();
+			curr_month = inDate.getUTCMonth();
+			curr_year = inDate.getUTCFullYear();
 			deskyOpts[id].in_date=inDate.getTime();
 		}
 		
 		// date format just in US format right now 
-		newInput.value = inDate.getFullYear()+"-"+String(parseInt(inDate.getMonth())+1).padStart(2,"0")+"-"+String(inDate.getDate()).padStart(2,'0')
+		newInput.value = inDate.getUTCFullYear()+"-"+String(parseInt(inDate.getUTCMonth())+1).padStart(2,"0")+"-"+String(inDate.getUTCDate()).padStart(2,'0')
 	} else newInput.value = "Select";
 
 	// Prepare disabled dates, if any. Will be used in draw schema
 	let disDate = new Date();
 	if (disabled_before > 1000) {
 		disDate.setTime(disabled_before);
-		deskyOpts[id].disabled_before=disDate.getTime()+86400000;
+		deskyOpts[id].disabled_before=disDate.getTime();
 	}
 
 	// init and draw calendars with inDate month and year
@@ -209,8 +210,8 @@ function drawCalSel(calParent, inputId, curr_year, curr_month) {
 	let monthNumSpan = calParent.querySelector('.desky-cal-month-num');
 	let calContainer = calParent.querySelector('.desky-cal-day-list');
 
-	if ( isNaN(curr_year)) curr_year = today.getFullYear();
-	if ( isNaN(curr_month)) curr_month = today.getMonth();
+	if ( isNaN(curr_year)) curr_year = today.getUTCFullYear();
+	if ( isNaN(curr_month)) curr_month = today.getUTCMonth();
 
 	let first = new Date(curr_year, curr_month, 1);
 	let last = new Date(curr_year, curr_month+1, 0);
@@ -218,34 +219,34 @@ function drawCalSel(calParent, inputId, curr_year, curr_month) {
 	let dowLast = last.getDay();
 
 	let currMonthName = first.toLocaleString('default', { month: 'long' });
-	// first.getFullYear();
+	// first.getUTCFullYear();
 
 	// Left - Day and month - TODAY
 	let tToday = new Date();
 
 	let todayMonthName = tToday.toLocaleString('default', { month: 'long' });
-	let todayTid = "calsel_"+curr_year+"_"+(parseInt(tToday.getMonth())+1)+"_"+tToday.getDate();
+	let todayTid = "calsel_"+curr_year+"_"+(parseInt(tToday.getUTCMonth())+1)+"_"+tToday.getUTCDate();
 
 	if (deskyOpts[inputId].mode == "double") {
-		calParent.querySelector('.left-day').innerText = today.getDate();
+		calParent.querySelector('.left-day').innerText = today.getUTCDate();
 		calParent.querySelector('.left-mon').innerText = todayMonthName;
 		calParent.querySelector('.left').dataset.day = todayTid;
 	}
 
 	// Right - month name 
-	monthNameSpan.innerText = currMonthName+" "+first.getFullYear();
+	monthNameSpan.innerText = currMonthName+" "+first.getUTCFullYear();
 	monthNumSpan.innerText = curr_month+"_"+curr_year; //hidden
 
 	let humanCurrMonth=curr_month+1;
 
-	let numFirst = first.getDate();
-	let numLast = last.getDate();
+	let numFirst = first.getUTCDate();
+	let numLast = last.getUTCDate();
 
 	// console.log("***"+first+"*** ----> "+dowFirst+" month:"+curr_month+" year:"+curr_year);
 	
 
 	//last day of past month
-	let lastLast = new Date(curr_year, curr_month, 0).getDate(); 
+	let lastLast = new Date(curr_year, curr_month, 0).getUTCDate(); 
 
 	// Past month from last sunday 
 	// that's obtained subtracting last day in the past month with first day of week of current month
@@ -259,7 +260,7 @@ function drawCalSel(calParent, inputId, curr_year, curr_month) {
 	tdate.setMonth(curr_month);
 	for (let i=1; i<=numLast; i++) {
 		tdate = new Date(tdate.setDate(i));
-		tid = "calsel_"+curr_year+"_"+humanCurrMonth+"_"+tdate.getDate();
+		tid = "calsel_"+curr_year+"_"+humanCurrMonth+"_"+tdate.getUTCDate();
 		let extraClass="";
 		if (todayTid == tid) extraClass="today";
 		/// disabled before
@@ -267,7 +268,7 @@ function drawCalSel(calParent, inputId, curr_year, curr_month) {
 		/// disabled after
 		if (tdate.getTime() > deskyOpts[inputId].disabled_after && deskyOpts[inputId].disabled_after != null) extraClass="disabled";
 
-		out += "<span data-day='"+tid+"' class='curr-month cal-sel-day "+extraClass+"' onClick='dayClick(this)'>"+tdate.getDate()+"</span>";
+		out += "<span data-day='"+tid+"' class='curr-month cal-sel-day "+extraClass+"' onClick='dayClick(this)'>"+tdate.getUTCDate()+"</span>";
 		// console.log("this: "+tdate);
 	}
 
@@ -275,7 +276,7 @@ function drawCalSel(calParent, inputId, curr_year, curr_month) {
 		tdate = new Date();
 		tdate.setDate(i);
 		tdate.setMonth(curr_month+1);
-		out += "<span class='next-month cal-sel-day'>"+tdate.getDate()+"</span>";
+		out += "<span class='next-month cal-sel-day'>"+tdate.getUTCDate()+"</span>";
 		// console.log("next:"+tdate+" num:"+numFirst+" i:"+i+" dowLast:"+dowLast);
 	}
 
@@ -320,7 +321,7 @@ function dayClick(el) {
 		centerDate.setMonth(idA[2]-1);
 		centerDate.setDate(idA[3]);
 		// input.value = centerDate;
-		input.value = centerDate.getFullYear()+"-"+String(parseInt(centerDate.getMonth())+1).padStart(2,"0")+"-"+String(parseInt(centerDate.getDate())).padStart(2,'0');
+		input.value = centerDate.getUTCFullYear()+"-"+String(parseInt(centerDate.getUTCMonth())+1).padStart(2,"0")+"-"+String(parseInt(centerDate.getUTCDate())).padStart(2,'0');
 	}
 
 	// call callback just if function is defined
@@ -336,7 +337,7 @@ function dayClick(el) {
 		let nextInputEl=document.getElementById(nextInput);
 
 		deskyOpts[nextInput].disabled_before = centerDate.getTime();
-		nextInputEl.value = centerDate.getFullYear()+"-"+String(parseInt(centerDate.getMonth())+1).padStart(2,"0")+"-"+String(parseInt(centerDate.getDate())).padStart(2,'0');
+		nextInputEl.value = centerDate.getUTCFullYear()+"-"+String(parseInt(centerDate.getUTCMonth())+1).padStart(2,"0")+"-"+String(parseInt(centerDate.getUTCDate())).padStart(2,'0');
 		drawCalSel(nextInputParent, nextInput, idA[1], idA[2]-1)
 	}
 	let to=300; 
