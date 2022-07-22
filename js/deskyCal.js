@@ -9,6 +9,58 @@
 
 const deskyOpts = {};
 
+function initDeskyCalendarAll() {
+	if (Object.keys(deskyOpts).length == 0) {console.log("Init deskyOpts Object beforer using this function"); return;} 
+	
+	Array.from(Object.keys(deskyOpts)).forEach(function(k){
+		let input = document.getElementById(k);
+		let containerHtml = "<div id='deskycal_container_"+k+"' class='deskycal'></div>";
+		/// This gives a #document, get first child
+		let container = parseHTML(containerHtml);
+		let newParent = container.firstChild;
+
+		let newInput = input.cloneNode(true);
+		let parent = input.parentNode;
+
+		newParent.appendChild(newInput);
+		parent.replaceChild(newParent, input);
+
+		//set input property and event listener
+		newInput.readOnly = true;
+		newInput.addEventListener('click', function(e){showCalSel(e,this); });
+
+
+		// set input date to show, if not any date. 
+		let curr_month, curr_year;
+		let in_date = deskyOpts[k]['in_date'];
+		if (!deskyOpts[k]['any_date']) {
+			let inDate = new Date();
+			if (in_date > 1000) {
+				// console.log("mills "+mills)
+				inDate.setTime(in_date);
+				curr_month = inDate.getMonth();
+				curr_year = inDate.getFullYear();
+				deskyOpts[k].in_date=inDate.getTime();
+			}
+			
+			// date format just in US format right now 
+			newInput.value = inDate.getFullYear()+"-"+String(parseInt(inDate.getMonth())+1).padStart(2,"0")+"-"+String(inDate.getDate()).padStart(2,'0')
+		} else newInput.value = "Select";
+
+		// Prepare disabled dates, if any. Will be used in draw schema
+		let disDate = new Date();
+		let disabled_before = deskyOpts[k]['disabled_before'];
+		if (disabled_before > 1000) {
+			disDate.setTime(disabled_before);
+			deskyOpts[k].disabled_before=disDate.getTime()+86400000;
+		}
+
+		// init and draw calendars with inDate month and year
+		insertSchema(newParent, k);
+		drawCalSel(newParent, k, curr_year, curr_month);
+	})
+}
+
 function initDeskyCalendar(id, mode = 'double', in_date = null, any_date = false, next_input = null, disabled_before=null, disabled_after=null, scroll=false, callback = null) {
 	let cb;
 	let input = document.getElementById(id);
@@ -23,7 +75,16 @@ function initDeskyCalendar(id, mode = 'double', in_date = null, any_date = false
 	if (in_date < 0) console.log('[deskyCal] timestamp can\'t be negative');
 
 	/// Create Options Object
-	deskyOpts[id] = {'mode':mode, 'in_date':in_date, 'any_date':any_date, 'next_input':next_input, 'disabled_before':disabled_before, 'disabled_after':disabled_after, 'callback': callback, 'scroll':scroll};
+	deskyOpts[id] = {
+		'mode':mode, 
+		'in_date':in_date, 
+		'any_date':any_date, 
+		'next_input':next_input, 
+		'disabled_before':disabled_before, 
+		'disabled_after':disabled_after, 
+		'callback': callback, 
+		'scroll':scroll
+	};
 
 	let containerHtml = "<div id='deskycal_container_"+id+"' class='deskycal'></div>";
 	
@@ -297,7 +358,10 @@ function showCalSel(e, el){
 	
 	cls.classList.toggle('desky-cal-hidden');
 
-	if (deskyOpts[el.id].scroll) cls.scrollIntoView({ behavior: 'smooth', block: 'center' });
+	if (deskyOpts[el.id].scroll) {
+		console.log("Scroll into view");
+		cls.scrollIntoView({ behavior: 'smooth', block: 'center' });
+	}
 	
 	///if calendar goes out of borders, position against border
 	let con = par.querySelector('.desky-cal-container');
