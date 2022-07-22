@@ -360,7 +360,7 @@ function showCalSel(e, el){
 
 	if (deskyOpts[el.id].scroll) {
 		console.log("Scroll into view");
-		cls.scrollIntoView({ behavior: 'smooth', block: 'center' });
+		cls.querySelector('.desky-cal-container').scrollIntoView({ behavior: 'smooth', block: 'center' });
 	}
 	
 	///if calendar goes out of borders, position against border
