@@ -57,7 +57,13 @@ initDeskyCal("calendar_date_selector1");
 // Or Passing the "double" it's the same
 initDeskyCal("calendar_date_selector1", "double");
 ```
-  
+
+###Easy CSS edit with css vars. 
+Some examples:
+![Screenshot Azul](https://danruggi.github.io/datepicker/assets/screenAzul.webp)
+![Screenshot Green](https://danruggi.github.io/datepicker/assets/screenGreen.webp)
+
+
 ##### Example 2: One Column
 One column pass single as second parmeter
 ```
