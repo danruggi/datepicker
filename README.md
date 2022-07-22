@@ -45,7 +45,7 @@ Easy usage:
 
 ### Easy CSS edit with css vars. 
 ![Screenshot Colors](https://danruggi.github.io/datepicker/assets/screenColors.webp) 
-
+### Check the Demo Page >> [Demo Page](https://danruggi.github.io/datepicker/)
 
 ### Examples  
 
@@ -134,3 +134,5 @@ Try to select a date to see the result
 ```
 //Set a external function on 9th parameter initDeskyCalendar("calendar_date_selector5", null, null, null, call_back_function);
 ```
+
+### Check the Demo Page >> [Demo Page](https://danruggi.github.io/datepicker/)
