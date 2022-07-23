@@ -43,11 +43,12 @@ Easy usage:
 
 ![Screenshot](https://danruggi.github.io/datepicker/assets/screen1.png)
 
-### Examples  
-  
+### Easy CSS edit with css vars. 
+![Screenshot Colors](https://danruggi.github.io/datepicker/assets/screenColors.webp) 
+### Check the Demo Page >> [Demo Page](https://danruggi.github.io/datepicker/)
 
-  
-    
+### Examples  
+
 ###### Example 1: Two columns
 Two column is default Just call the function passing just the id
 ```
@@ -57,7 +58,9 @@ initDeskyCal("calendar_date_selector1");
 // Or Passing the "double" it's the same
 initDeskyCal("calendar_date_selector1", "double");
 ```
-  
+
+
+
 ##### Example 2: One Column
 One column pass single as second parmeter
 ```
@@ -131,3 +134,5 @@ Try to select a date to see the result
 ```
 //Set a external function on 9th parameter initDeskyCalendar("calendar_date_selector5", null, null, null, call_back_function);
 ```
+
+### Check the Demo Page >> [Demo Page](https://danruggi.github.io/datepicker/)
