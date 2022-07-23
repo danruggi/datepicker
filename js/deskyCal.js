@@ -317,9 +317,9 @@ function dayClick(el) {
 	if (idA[1] == "anyDate") {
 		input.value = "Any";
 	} else {
-		centerDate.setYear(idA[1]);
-		centerDate.setMonth(idA[2]-1);
-		centerDate.setDate(idA[3]);
+		centerDate.setUTCFullYear(idA[1]);
+		centerDate.setUTCMonth(idA[2]-1);
+		centerDate.setUTCDate(idA[3]);
 		// input.value = centerDate;
 		input.value = centerDate.getUTCFullYear()+"-"+String(parseInt(centerDate.getUTCMonth())+1).padStart(2,"0")+"-"+String(parseInt(centerDate.getUTCDate())).padStart(2,'0');
 	}
