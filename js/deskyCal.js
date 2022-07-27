@@ -1,12 +1,13 @@
 ////////////////// ***** ////////////////////
 // desky calendar Javascript 
 // by Daniele Rugginenti
-// 2021 08 28 ver. 2.0 rev 1
-// 2021 10 01 ver. 2.5 -- Adding mobile full page support 
-// 2022 05 16 ver. 3.0 -- Make it Independent 
-// 2022 05 16 ver. 3.5 -- Working on github 
-// 2022 07 22 ver. 4.2 -- UTC dates 
-// 2022 07 22 ver. 4.3 -- Any input value empty 
+// 2021 08 28 ver. 2.0   -- rev 1
+// 2021 10 01 ver. 2.5   -- Adding mobile full page support 
+// 2022 05 16 ver. 3.0   -- Make it Independent 
+// 2022 05 16 ver. 3.5   -- Working on github 
+// 2022 07 22 ver. 4.2   -- UTC dates 
+// 2022 07 27 ver. 4.3   -- Any input value empty 
+// 2022 07 27 ver. 4.3.1 -- Any input placeholder Any 
 ////////////////////////////////////////////
 
 const deskyOpts = {};
@@ -118,7 +119,10 @@ function initDeskyCalendar(id, mode = 'double', in_date = null, any_date = false
 		
 		// date format just in US format right now 
 		newInput.value = inDate.getUTCFullYear()+"-"+String(parseInt(inDate.getUTCMonth())+1).padStart(2,"0")+"-"+String(inDate.getUTCDate()).padStart(2,'0')
-	} else newInput.value = "";
+	} else {
+		newInput.value = "";
+		newInput.placeholder = "Any";
+	}
 
 	// Prepare disabled dates, if any. Will be used in draw schema
 	let disDate = new Date();
