@@ -6,6 +6,7 @@
 // 2022 05 16 ver. 3.0 -- Make it Independent 
 // 2022 05 16 ver. 3.5 -- Working on github 
 // 2022 07 22 ver. 4.2 -- UTC dates 
+// 2022 07 22 ver. 4.3 -- Any input value empty 
 ////////////////////////////////////////////
 
 const deskyOpts = {};
@@ -117,7 +118,7 @@ function initDeskyCalendar(id, mode = 'double', in_date = null, any_date = false
 		
 		// date format just in US format right now 
 		newInput.value = inDate.getUTCFullYear()+"-"+String(parseInt(inDate.getUTCMonth())+1).padStart(2,"0")+"-"+String(inDate.getUTCDate()).padStart(2,'0')
-	} else newInput.value = "Select";
+	} else newInput.value = "";
 
 	// Prepare disabled dates, if any. Will be used in draw schema
 	let disDate = new Date();
@@ -315,7 +316,7 @@ function dayClick(el) {
 	let centerDate = new Date();
 
 	if (idA[1] == "anyDate") {
-		input.value = "Any";
+		input.value = "";
 	} else {
 		centerDate.setUTCFullYear(idA[1]);
 		centerDate.setUTCMonth(idA[2]-1);
