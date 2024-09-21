@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>DeskyDoo Calendar Picker</title>
+
+    <!-- deskyCal Include CSS -->
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/gh/danruggi/datepicker@main/css/deskyCal.css' onload="this.media='all'">
+    <!-- // <link rel='stylesheet' href='cssdev/deskycal.css' onload="this.media='all'"> -->
+
+    <!-- My Personal CSS framework to show up Demo Page, not needed  -->
+    <link rel='stylesheet' href='/css/first.css' onload="this.media='all'"> 
+    <link rel='stylesheet' href='/css/github.css' onload="this.media='all'"> 
+
+</head>
+
+<style>
+
+
+    .deskycal {
+        margin: 0 auto;
+    }
+    .deskycal input {
+        text-align: center;
+        width: 12ch;
+        font-size: 1.2em;
+        line-height: 1.8em;
+        height: 2em;
+        padding-right: 10px;
+        border-color: #ccc;
+        /* outline: none; */
+        /* border-inline: none; */
+        border-style: none;
+        border: 2px solid #999;
+        border-radius: 5px;
+        color: #ccc;
+        box-shadow: 3px 3px 7px 0px #444;
+        background-size: 22px;
+        background-position-x: 5px;
+    }
+
+    .hoverable {
+        color: #ccc;
+        transition: 1s all;
+    }
+    .hoverable:hover {
+        color: coral;
+    }
+
+
+    .css-img-cont {height: 220px; width: 30vw;}
+    .css-img {max-height: 200px; max-width:25vw;  margin: 1rem auto}
+
+    /* ANIMATION TITLE*/
+    .header {
+        min-height: 100vh;
+    } 
+    .sides {
+        display: flex;
+        justify-content: center;
+        overflow: hidden;   
+    }
+    .grid-main {
+        grid-template-columns: 50vw 50vw;
+    }
+
+    .img-main-right img {
+        max-width: 45vw;
+    }
+
+    .title {
+        color: #0c0d2b;
+    }
+    .title span {
+        font-size: 3em;
+        line-height: 0.7em;
+    }
+    .title h1{
+        font-size: 7em;
+        margin: 0 10px;
+    }
+
+    .cal-icon {
+        position: absolute; 
+        top: 30px; 
+        left: 25%; 
+        transform: translateX(-50%);
+        width: 128px;
+    }
+
+    @keyframes firstViewChangeGrid {
+        0% {grid-gap: 100vw; }
+        100% {grid-gap: 0; }
+    }
+
+    @keyframes slideInDown {
+        0% {top: -100vh; }
+        100% {top: 13vh; }
+    }
+
+    /* ANIMATIONS IMGS */
+    .slide-from-left {
+        animation: 0.6s slideInLeft cubic-bezier(.86,0,.07,1) 0.1s both;
+    }
+
+    @keyframes slideInLeft {
+        0% {transform: translateX(-100vw) }
+        100% {transform: translateX(0%) }
+    }
+
+    .slide-from-right {
+        animation: 0.8s slideInRight cubic-bezier(.86,0,.07,1) 0.1s both;
+    }
+
+    @keyframes slideInRight {
+        0% {transform: translateX(100vw) }
+        100% {transform: translateX(0%) }
+    }
+
+    .slide-from-bottom {
+        animation: 0.8s slideInBottom cubic-bezier(.86,0,.07,1) 0.1s both;
+    }
+
+    @keyframes slideInBottom {
+        0% {transform: translateY(100vh) }
+        100% {transform: translateY(0%) }
+    }
+
+
+    /* DIFFERENT SCREENS SIZES */
+
+    @media only screen and (min-width: 1100px) {
+        .grid-main {
+            animation: 0.7s firstViewChangeGrid cubic-bezier(.86,0,.07,1) 0.4s both;
+            grid-template-columns: 50vw 50vw;
+        }
+
+        .slideDown {
+            animation: 0.7s slideInDown cubic-bezier(.86,0,.07,1) 1s both;
+        }
+        .cal-icon {
+            width: 256px;
+        }
+
+    }
+    
+    @media only screen and (min-width: 2801px) {
+
+        .title span {
+            font-size: 3em;
+        }
+        .title h1{
+            /* animation: firstViewGoSmall 2s ease-out 0s 1  normal forwards; */
+            font-size: 6em;
+        }
+
+        .cal-icon{ width: 256px; }
+    }
+    @media only screen and (max-width: 2800px) {
+
+        .title span {
+            font-size: 3em;
+        }
+        .title h1{
+            /* animation: firstViewGoSmall 2s ease-out 0s 1  normal forwards; */
+            font-size: 6em;
+        }
+        .cal-icon{ width: 128px; }
+
+    }
+    @media only screen and (max-width: 1850px) {
+        .title span {
+            font-size: 2em;
+        }
+        .title h1{
+            /* animation: firstViewGoSmall 2s ease-out 0s 1  normal forwards; */
+            font-size: 5em;
+        }
+        @keyframes slideInDown {
+            0% {top: -100vh; }
+            100% {top: 8vh; }
+        }
+    }
+    
+    @media only screen and (max-width: 1300px) {
+        .title span {
+            font-size: 1.6em;
+        }
+        .title h1{
+            /* animation: firstViewGoSmall 2s ease-out 0s 1  normal forwards; */
+            font-size: 4em;
+        }
+    }
+    @media only screen and (max-width: 1100px) {
+        .title span {
+            font-size: 2em;
+        }
+        .title h1{
+            /* animation: firstViewGoSmall 2s ease-out 0s 1  normal forwards; */
+            font-size: 5em;
+        }
+        .img-main-right {
+            width: 90vw;
+            /* margin-top: 4em; */
+        }
+        .img-main-right img {
+            max-width: 90vw;
+        }
+        .cal-img {
+            width: 70vw;
+            height: auto;
+        }
+        .cal-icon {
+            display: none;
+        }
+        .css-img-cont {width: auto; }
+        .css-img {max-width: 85vw;}
+    }
+    @media only screen and (max-width: 750px) {
+        .title span {
+            font-size: 1.5em;
+        }
+        .title h1{
+            /* animation: firstViewGoSmall 2s ease-out 0s 1  normal forwards; */
+            font-size: 3em;
+        }
+    }
+    @media only screen and (max-width: 380px) {
+        .title span {
+            font-size: 1em;
+        }
+        .title h1{
+            /* animation: firstViewGoSmall 2s ease-out 0s 1  normal forwards; */
+            font-size: 2em;
+        }
+    }
+</style>
+
+<body>
+    <div class="body-container m0a ta-c">
+        <div class="header flex-centered">
+            <!-- Main Grid 2 cols-->
+            <img src="assets/calendar.svg"  class="m0a slideDown cal-icon">
+            <div class="sides">
+                <div class="grid-container grid-main">
+                    <div class="side title">
+                        <div class="flex-centered">
+                            <div class="flex-container centered" >
+                                <div class="flex-centered">
+                                    <span class="grape left">Small & <br>flexible</span>
+                                </div>
+                                <h1 class="ta-c finger">Date picker</h1>
+                            </div>
+                            <div class="flex-container centered" >
+                                <h1 class="ta-c finger">Demo Page</h1>
+                                <div class="flex-centered" style="width: min-content">
+                                    <span class="grape right">with <br>examples</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="side img-main-right">
+                        <div class="flex-centered mb2">
+                            <img src="assets/deskycal_presentation_896.webp" >
+                            <a class="hoverable mt1 smaller" href="https://www.deskydoo.com">Created for Deskydoo hostel PMS cloud software</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="flex-container centered">
+                <div class="flex-centered">
+                    <div class="grid-container m0a git-link" style="width: 150px; grid-template-columns: auto auto">
+                        <img src="assets/gitico.webp" width="32">
+                        <a class="hoverable m0a" href="https://github.com/danruggi/datepicker">GitHub Project page</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="grid-container grid-2col w80 m0a" style="margin-top: 3em;">
+            <div class="flex-centered" style="overflow:hidden">
+                <img id="screen1" src="assets/screen1.png" class="m0a cal-img" width="400" height="231">
+            </div>
+            <div class="ta-l">
+                <p><b>Click on the input fields downthere to see the examples</b></p>
+                <span>📳 Full Responsive</span><br>
+                <span>🌱 Double / Single Format</span><br>
+                <span>⚙️ Set The Date</span><br>
+                <span>🍀 Add "Any Date" Option</span><br>
+                <span>🔒 Disable Dates</span><br>
+                <span>💡 Relates 2 datepickers for range</span><br>
+                <span>📎 Execute external function on click</span><br>
+                <span>🤏 Minified version is just <b>6.3K</b></span><br>
+                <span>✌️ Just include 2 files and call many times you need in a page</span><br>
+            </div>
+        </div>
+
+        <div class="grid-container grid-2col w80 m0a">
+            <div class="m0a ta-l">
+                <p><b>Easy usage:</b></p>
+                <p>1. Include CSS and JS</p>
+                <div class="code">
+                    &lt;link rel='stylesheet' href='<b>https://cdn.jsdelivr.net/gh/danruggi/datepicker/css/deskyCal.css</b>' onload="this.media='all'"&gt;
+                    <br>
+                    <br>
+                    &lt;script type="text/javascript" src="<b>https://cdn.jsdelivr.net/gh/danruggi/datepicker/js/deskyCal.js</b>"&gt;&lt;/script&gt;
+                </div>
+                <p>2. Create any field with an unique ID in the page</p>
+                <div class="code">
+                    &lt;input id='myID'&gt;
+                </div>
+                <p>3. Init the calendar with </p>
+                <div class="code">
+                    &lt;script&gt;<b>initDeskyCal(myID);</b>&lt;/script&gt;
+                </div>
+            
+            </div>
+
+            <div class="flex-centered" style="overflow:hidden"> 
+                <img id="screen2" src="assets/screen2.png" class="m0a mt1" width="152" height="175">
+            </div>
+        </div>
+
+        <div class="grid-container grid-2col w60 m0a mt2">
+
+            <!-- Example 1 -->
+            <div>
+                <h2 class="m0">Example 1: Two columns</h2>
+                <p><em>Two column</em>  is default<br> Just call the function passing just the id</p>
+                <div class='code'>
+                    <span class="comment">// Just one parameter</span><br>
+                    initDeskyCal("calendar_date_selector1");<br><br>
+                    <span class="comment">// Or Passing the "double" it's the same</span><br>
+                    initDeskyCal("calendar_date_selector1", "double");
+                </div>
+            </div>
+            <div class="flex-centered h100">
+                <span class="smaller" style="color:#ccc">calendar_date_selector1</span>
+                <input type="text" name="calendar" id="calendar_date_selector1" >
+            </div>
+            
+            <!-- Example 2 -->
+            <div>
+                <h2 class="m0">Example 2: One Column</h2>
+                <p><em>One column</em> pass <b>single</b> as second parmeter</p>
+                <div class='code'>
+                    initDeskyCalendar("calendar_date_selector2", "single");
+                </div>
+            </div>
+            <div class="flex-centered">
+                <span class="smaller" style="color:#ccc">calendar_date_selector2</span>
+                <input type="text" name="calendar" id="calendar_date_selector2" >
+            </div>
+            
+            <!-- Example 3 -->
+            <div>
+                <h2 class="m0">Example 3: Specify date</h2>
+                <p>Pass a <b>date</b> as third parameter</p>
+                <div class='code'>
+                    <span class="comment">//Create a date</span><br>
+                    const d = Date.parse('04 Dec 2025 00:12:00 GMT');<br>
+                    initDeskyCalendar("calendar_date_selector3", null, d);
+                </div>
+            </div>
+            <div class="flex-centered">
+                <span class="smaller" style="color:#ccc">calendar_date_selector3</span>
+                <input type="text" name="calendar" id="calendar_date_selector3" >
+            </div>
+            
+            <!-- Example 4 -->
+            <div>
+                <h2 class="m0">Example 4: "Any Date"</h2>
+                <p>
+                    Add a "Any Date" button to leave some free choice<br>
+                    <span class="small"><em>Generally useful in filters and reports</em></span><br>
+                    Set 4th parameter as true
+                </p>
+                <div class='code'>
+                    <span class="comment">//Set true the 4th parameter</span>
+                    initDeskyCalendar("calendar_date_selector4", null, d, true);
+                </div>
+            </div>
+            <div class="flex-centered">
+                <span class="smaller" style="color:#ccc">calendar_date_selector4</span>
+                <input type="text" name="calendar" id="calendar_date_selector4" >
+            </div>
+
+
+            <!-- Example 5 -->
+            <div>
+                <h2 class="m0">Example 5: Range</h2>
+                <p>
+                    Range options
+                    Specify the next ID, and clicking on the first input, <br>
+                    Automatically disable dates in the second input<br>
+                    <b>Use the single mode</b>  
+                </p>
+                <div class='code'>
+                    <span class="comment">//Set the 5th parameter as the ID of the "other" input</span><br>
+                    <span class="comment">//Use the "single" mode</span><br>
+                    initDeskyCalendar("calendar_date_selector5", "single", null, null, "calendar_date_selector6");
+                    <br><br>
+                    initDeskyCalendar("calendar_date_selector6", "single");
+                    <br><br>
+                    <span class="comment">//Or use in conjuncton with "any date" or other options</span> <br>
+                    initDeskyCalendar("calendar_date_selector7", "single", null, true, "calendar_date_selector8");
+                    <br><br>
+                    initDeskyCalendar("calendar_date_selector8", "single", null, true);
+                </div>
+            </div>
+            <div class="flex-centered">
+                <div class="grid-container grid-2col keep-mobile">
+                    <div>
+                        <span class="smaller" style="color:#ccc">calendar_date_selector5</span>
+                        <input type="text" name="calendar" id="calendar_date_selector5" >
+                    </div>
+                    <div>
+                        <span class="smaller" style="color:#ccc">calendar_date_selector6</span>
+                        <input type="text" name="calendar" id="calendar_date_selector6" >
+                    </div>
+                    <div>
+                        <span class="smaller" style="color:#ccc">calendar_date_selector7</span>
+                        <input type="text" name="calendar" id="calendar_date_selector7" >
+                    </div>
+                    <div>
+                        <span class="smaller" style="color:#ccc">calendar_date_selector8</span>
+                        <input type="text" name="calendar" id="calendar_date_selector8" >
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Example 6 -->
+            <div>
+                <h2 class="m0">Example 6: Disable Before or After Date</h2>
+                <p>
+                    Disable selection before or after a date<br>
+                    Using 6th and 7th parameters
+                </p>
+                <div class='code'>
+                    <span class="comment">//Create a date</span><br>
+                    const d2 = new Date();<br>
+                    const d3 = new Date();<br><br>
+                    <span class="comment">//just an example, 2 days before and 10 days after</span><br>
+                    d2.setTime(d2.getTime()-(2*3600*24*1000));<br>  
+                    d3.setTime(d3.getTime()+(10*3600*24*1000)); <br><br>
+                    <span class="comment">//Set a date at 6th or 7th parameter</span><br>
+                    initDeskyCalendar("calendar_date_selector9", "single", null, null, null, <b>d2</b>);    <br><br>
+                    initDeskyCalendar("calendar_date_selector10", "single", null, null, null, <b>d2, d3</b>);<br>   
+                </div>
+            </div>
+            <div class="flex-centered">
+                <div class="grid-container grid-2col keep-mobile">
+                    <div>
+                        <div class="smaller" style="line-height: 10px; color:#ccc">
+                            <span>calendar_date_selector9</span><br>
+                            <span>disabled before d2</span>
+                        </div>
+                        <input type="text" name="calendar" id="calendar_date_selector9" >
+                    </div>
+                    <div>
+                        <div class="smaller" style="line-height: 10px; color:#ccc">
+                            <span>calendar_date_selector10</span><br>
+                            <span>disabled before d2 <b>and</b> after d3</span>
+                        </div>
+                        <input type="text" name="calendar" id="calendar_date_selector10" >
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Example 7 -->
+            <div>
+                <h2 class="m0">Example 7: Scroll into view</h2>
+                <p>
+                    Add a scroll into on show.<br>
+                    <span class="small"><em>Generally useful when calendar goes out of borders on show up</em></span><br>
+                    Set 8th parameter as true
+                </p>
+                <div class='code'>
+                    <span class="comment">//Set true the 8th parameter</span>
+                    initDeskyCalendar("calendar_date_selector11", null, null, null, null, null, null, <b>true</b>); 
+                </div>
+            </div>
+            <div class="flex-centered">
+                <div>
+                    <div class="smaller" style="color:#ccc">
+                        <span>calendar_date_selector11</span><br>
+                    </div>
+                    <input type="text" name="calendar" id="calendar_date_selector11" >
+                </div>
+            </div>
+
+
+
+
+            <!-- Example 8 -->
+            <div>
+                <h2 class="m0">Example 8: CallBack function</h2>
+                <p> 
+                    Specify a call back function on day click<br> 
+                    in 9th parameter.<br>
+                    <em>Try to select a date to see the result</em>
+                </p>
+                <div class='code'>
+                    <span class="comment">//Set a external function on 9th parameter</span>
+                        initDeskyCalendar("calendar_date_selector12", "double", null, null, null, null, null, null, call_back_function);
+                </div>
+            </div>
+            <div class="flex-centered">
+                <div class="smaller" style="color:#ccc"> <span>calendar_date_selector12</span></div>
+                <input type="text" name="calendar" id="calendar_date_selector12" >
+                <span id="calendar_date_selector12_out" class="small mt1" style="color:red">No Date Selected</span>
+            </div>
+        
+        
+    </div>
+
+    <!-- CSS Examples -->
+    <h1 class="m0 mt2 finger tred" style="font-size:3em">CSS Examples - set vars locally</h1>
+    <h4 class="m0">More calendars with different styles can stay all together in the same page</h4>
+    
+    <div class="grid-container grid-3col w90 m0a" style="align-items: flex-start;">
+        <div class="flex-centered">
+            <h3><span style="color:white">White</span> and <span style="color: #00bcd4"> light blue</span></h3>
+            <div class="flex-centered m0a css-img-cont">
+                <img id="screen_blue" src="assets/screenAzul.webp"  class="css-img">
+            </div>
+            <style type="text/css">
+                #deskycal_calendar_date_selector13 {
+                    --deskycal-main-color: #00bcd4;
+                    --deskycal-today-bg-color: #006897;
+                    --deskycal-today-right-color: #fff;
+                    --deskycal-today-left-hover-color: #03a9f4;
+                    --deskycal-base-bg-color: #ffffff;
+                    --deskycal-dates-color: #00437c;
+                    --deskycal-disabled-dates-color: #d5d5d5;
+                    --deskycal-border-width: 5px;
+                    --deskycal-border-radius: 18px;
+                    --deskycal-border-color: #00bcd4;
+                    --deskycal-font-size: 26px;
+                    --deskycal-line-height: 30px;
+                    --deskycal-width-double: 700px;
+                    --deskycal-width-single: 300px;
+                }
+            </style>
+
+            <div class="flex-centered">
+                <div class="smaller" style="color:#ccc"> <span>calendar_date_selector13</span></div>
+                <input type="text" name="calendar" id="calendar_date_selector13" >
+            </div>
+
+            <div class='code'>
+                <span class="comment">/*</span><br>
+                <span class="comment">***White and light blue***</span><br>
+                <span class="comment">You just need to add this code to your page's CSS, changing your ID</span><br>
+                <span class="comment">IE, if you choose ID "calendar_date_selector13"</span><br>
+                <span class="comment">scope vars locally for #deskycal_calendar_date_selector13</span><br>
+                <span class="comment">*/</span><br><br>
+
+                &lt;style&gt;<br>
+                #deskycal_<b>calendar_date_selector13</b> {<br>
+                   --deskycal-main-color: #00bcd4;<br>
+                    --deskycal-today-bg-color: #006897;<br>
+                    --deskycal-today-right-color: #fff;<br>
+                    --deskycal-today-left-hover-color: #03a9f4;<br>
+                    --deskycal-base-bg-color: #ffffff;<br>
+                    --deskycal-dates-color: #00437c;<br>
+                    --deskycal-disabled-dates-color: #d5d5d5;<br>
+                    --deskycal-border-width: 5px;<br>
+                    --deskycal-border-radius: 18px;<br>
+                    --deskycal-border-color: #00bcd4;<br>
+                    --deskycal-font-size: 26px;<br>
+                    --deskycal-line-height: 30px;<br>
+                    --deskycal-width-double: 700px;<br>
+                    --deskycal-width-single: 300px;<br>
+                }<br>
+                &lt;/style&gt;<br>
+            </div>
+
+        </div>
+
+        <div class="flex-centered">
+            <h3 style="color: #ff21b0">Pink</h3>
+            <div class="flex-centered m0a css-img-cont">
+                <img id="screen_pink" src="assets/screenPink.webp" class="css-img" >
+            </div>
+            <style type="text/css">
+                #deskycal_calendar_date_selector14 {
+                    --deskycal-main-color: #8f005c;
+                    --deskycal-today-bg-color: #ff21b0;
+                    --deskycal-today-right-color: #fff;
+                    --deskycal-today-left-hover-color: #8f005c;
+                    --deskycal-base-bg-color: #ffffff;
+                    --deskycal-dates-color: #ff21b0;
+                    --deskycal-disabled-dates-color: #ffb8e6;
+                    --deskycal-border-width: 5px;
+                    --deskycal-border-radius: 18px;
+                    --deskycal-border-color: #ff21b0;
+                    --deskycal-font-size: 15px;
+                    --deskycal-line-height: 34px;
+                    --deskycal-width-double: 700px;
+                    --deskycal-width-single: 300px;
+                }
+            </style>
+            <div class="flex-centered">
+                <div class="smaller" style="color:#ccc"> <span>calendar_date_selector14</span></div>
+                <input type="text" name="calendar" id="calendar_date_selector14" >
+            </div>
+
+            <div class='code'>
+                <span class="comment">/*</span><br>
+                <span class="comment">***Pink and white***</span><br>
+                <span class="comment">*/</span><br><br>
+
+                &lt;style&gt;<br>
+                #deskycal_<b>calendar_date_selector14</b> {<br>
+                   --deskycal-main-color: #8f005c;<br>
+                    --deskycal-today-bg-color: #ff21b0;<br>
+                    --deskycal-today-right-color: #fff;<br>
+                    --deskycal-today-left-hover-color: #8f005c;<br>
+                    --deskycal-base-bg-color: #ffffff;<br>
+                    --deskycal-dates-color: #ff21b0;<br>
+                    --deskycal-disabled-dates-color: #ffb8e6;<br>
+                    --deskycal-border-width: 5px;<br>
+                    --deskycal-border-radius: 18px;<br>
+                    --deskycal-border-color: #ff21b0;<br>
+                    --deskycal-font-size: 15px;<br>
+                    --deskycal-line-height: 34px;<br>
+                    --deskycal-width-double: 700px;<br>
+                    --deskycal-width-single: 300px;<br>
+                }<br>
+                &lt;/style&gt;<br>
+            </div>
+            <!-- <h2>WIP</h2> -->
+        </div>
+
+        <!-- 15 -->
+        <!-- Green -->
+        <div class="flex-centered">
+            <h3 style="color: lime">Green</h3>
+            <div class="flex-centered m0a css-img-cont">
+                <img id="screen_green" src="assets/screenGreen.webp" class="css-img">
+            </div>
+            <style type="text/css">
+                #deskycal_calendar_date_selector15 {
+                     --deskycal-main-color: #02ff00;
+                    --deskycal-today-bg-color: #216c20;
+                    --deskycal-today-right-color: #fff;
+                    --deskycal-today-left-hover-color: #99ff98;
+                    --deskycal-base-bg-color: #000000;
+                    --deskycal-dates-color: #bbffbb;
+                    --deskycal-disabled-dates-color: #285c27;
+                    --deskycal-border-width: 5px;
+                    --deskycal-border-radius: 40px;
+                    --deskycal-border-color: #02ff00;
+                    --deskycal-width-double: 700px;
+                    --deskycal-font-size: 4vh;
+                    --deskycal-line-height: 2em;
+                    --deskycal-width-single: 30vw;
+                }
+            </style>
+            <div class="flex-centered">
+                <div class="smaller" style="color:#ccc"> <span>calendar_date_selector15</span></div>
+                <input type="text" name="calendar" id="calendar_date_selector15" >
+            </div>
+
+            <div class='code'>
+                <span class="comment">/*</span><br>
+                <span class="comment">***Green***</span><br>
+                <span class="comment">Size can be dynamic</span><br>
+                <span class="comment">*/</span><br><br>
+
+                &lt;style&gt;<br>
+                #deskycal_<b>calendar_date_selector15</b> {<br>
+                       --deskycal-main-color: #02ff00;<br>
+                        --deskycal-today-bg-color: #216c20;<br>
+                        --deskycal-today-right-color: #fff;<br>
+                        --deskycal-today-left-hover-color: #99ff98;<br>
+                        --deskycal-base-bg-color: #000000;<br>
+                        --deskycal-dates-color: #bbffbb;<br>
+                        --deskycal-disabled-dates-color: #285c27;<br>
+                        --deskycal-border-width: 5px;<br>
+                        --deskycal-border-radius: 40px;<br>
+                        --deskycal-border-color: #02ff00;<br>
+                        --deskycal-font-size: <b>4vh;</b><br>
+                        --deskycal-line-height: <b>2em;</b><br>
+                        --deskycal-width-single: <b>30vw</b>;<br>
+                        --deskycal-width-double: 700px;<br>
+                }<br>
+                &lt;/style&gt;<br>
+            </div>
+            <!-- <h2>WIP</h2> -->
+        </div>
+    </div>
+
+    <h4 class="m0" style="color:#999">Just inspect the calendar and change variables as you like, and copy and paste in a &lt;style&gt; tag</h4>
+    <img src="assets/howToEdit.webp" style="max-width:60vw;"> 
+<!-- 
+    <footer style="bottom:0; height:200px; background-color:#ccc; width:100%"> 
+    </footer>
+     -->
+</body>
+
+<!-- Include JS -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/danruggi/datepicker@main/js/deskyCal.js"></script>
+<!-- <script type="text/javascript" src="jsdev/deskyCal.js"></script> -->
+
+<script type="text/javascript">
+
+    const d1 = Date.parse('04 Dec 2025 00:12:00 GMT');
+
+    const deskyOpts = {
+        /// Call the init Calendar
+        /// Example 1
+        'calendar_date_selector1': {},
+
+        /// Example 2
+        'calendar_date_selector2': {mode: 'single'},
+
+        /// Example 3
+        /// Select date
+        'calendar_date_selector3': {mode: 'double', defaultDate: d1},
+
+
+        /// Example 4
+        //// Any Date
+        'calendar_date_selector4': {anyDate: true},
+
+        /// Example 5
+        //// Next Input
+        'calendar_date_selector5': {mode: 'single', anyDate: true, nextInput: 'calendar_date_selector6'},
+        'calendar_date_selector6': {mode: 'single', anyDate: true},
+        'calendar_date_selector7': {mode: 'single', nextInput: 'calendar_date_selector8'},
+        'calendar_date_selector8': {mode: 'single'},
+
+    };
+
+    const deskyCalendar = new DeskyCalendar(deskyOpts);
+
+
+    /// Example 6
+    //// disable before after date
+    const d2 = new Date();
+    const d3 = new Date();
+    d2.setTime(d2.getTime()-(2*3600*24*1000));  
+    d3.setTime(d3.getTime()+(10*3600*24*1000)); 
+    initDeskyCalendar("calendar_date_selector9", "single", null, null, null, d2);   
+    initDeskyCalendar("calendar_date_selector10", "single", null, null, null, d2, d3);  
+
+    /// Example 7
+    //// Scroll
+    initDeskyCalendar("calendar_date_selector11", null, null, null, null, null, null, true);    
+
+
+    /// Example 8
+    //// call back
+    initDeskyCalendar("calendar_date_selector12", "double", null, null, null, null, null, null, call_back_function);
+    
+    function call_back_function(d) {
+        /// accept the returned date as only argument
+        // calc date difference
+        let now=new Date();
+        let diff=d.getTime()-now.getTime();
+        let days=Math.round(diff/(3600*24*1000));
+        let out = "Date selected "+Math.abs(days)+" days ";
+        (days<0) ? out+="in the past" : (days==0) ? out="You selected Today" : out+="in the future";
+        document.getElementById('calendar_date_selector12_out').innerText=out;
+    }
+
+
+    /// Example 9
+    //// colors blue
+    initDeskyCalendar("calendar_date_selector13");
+    
+    //// colors pink
+    initDeskyCalendar("calendar_date_selector14");
+    
+    //// colors pink
+    initDeskyCalendar("calendar_date_selector15", "single");
+
+    //// Scroll Title Move
+    document.addEventListener('scroll', onScroll);
+    const spanLeft = document.querySelector('.title span.left');
+    const spanRight = document.querySelector('.title span.right');
+    const screen1 = document.querySelector('#screen1');
+    const screen2 = document.querySelector('#screen2');
+    const screenBlue = document.querySelector('#screen_blue');
+    const screenPink = document.querySelector('#screen_pink');
+    const screenGreen = document.querySelector('#screen_green');
+    function onScroll(e) {
+        let windowHeight = window.innerHeight;
+        let v = Math.abs(0.1*window.scrollY);
+        // console.log(v);
+
+        if (v<15) {
+            spanLeft.style.transform = "translateX(-"+v+"px)";
+            spanRight.style.transform = "translateX("+v+"px)";
+        }
+        let topPos1 = screen1.getBoundingClientRect()['top']-windowHeight;
+        if (topPos1 < 0) screen1.classList.add('slide-from-left');
+        // console.log(topPos1);
+
+        let topPos2 = screen2.getBoundingClientRect()['top']-windowHeight;
+        if (topPos2 < 0) screen2.classList.add('slide-from-right');
+
+        let topPos3 = screenBlue.getBoundingClientRect()['top']-windowHeight;
+        if (topPos3 < 0) screenBlue.classList.add('slide-from-left');
+
+        let topPos4 = screenPink.getBoundingClientRect()['top']-windowHeight;
+        if (topPos4 < 0) screenPink.classList.add('slide-from-bottom');
+
+        let topPos5 = screenGreen.getBoundingClientRect()['top']-windowHeight;
+        if (topPos5 < 0) screenGreen.classList.add('slide-from-right');
+    }   
+</script>
+</html>

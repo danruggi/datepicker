@@ -154,7 +154,7 @@ class DeskyCalendar {
         this.calendars[id].newInput.value = this.formatDateToLocal(defaultDate);
         this.calendars[id].centerDate = defaultDate
 
-        const nextInputId = this.options[id].next_input
+        const nextInputId = this.options[id].nextInput
         if (nextInputId) {
             this.options[nextInputId].disabled_before = defaultDate;
             this.options[nextInputId].defaultDate = defaultDate;
@@ -417,7 +417,7 @@ class DeskyCalendar {
             this.options[id].callback.callback(centerDate);
         }
 
-        if (this.options[id].next_input != null) {
+        if (this.options[id].nextInput != null) {
             this.initializeNextInput(id)
         }
         let to=300;
@@ -430,7 +430,7 @@ class DeskyCalendar {
 
     initializeNextInput(id){
         /// redraw next input
-        let nextInputId = this.options[id].next_input;
+        let nextInputId = this.options[id].nextInput;
         const centerDate = this.calendars[id].centerDate
 
         if (centerDate) {
