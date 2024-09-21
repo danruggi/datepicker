@@ -45,7 +45,7 @@ function generateDowList() {
 function buildCalendarHTML(id, options) {
     const mode = options.mode || 'single';
     const extraClass = mode === 'single' ? 'single' : '';
-    const anyDateOption = options.any_date ? buildAnyDateHTML(id) : '';
+    const anyDateOption = options.anyDate ? buildAnyDateHTML(id) : '';
 
     return `
         <div class='desky-dark-container desky-cal-hidden'>
@@ -219,9 +219,9 @@ class DeskyCalendar {
             left_date.addEventListener('click', (e) => this.dayClick(left_date, id))
         }
 
-        const any_date = this.calendars[id].calendarContainer.querySelector('.any-date-day')
-        if (any_date) {
-            any_date.addEventListener('click', (e) => this.dayClick(any_date, id))
+        const anyDate = this.calendars[id].calendarContainer.querySelector('.any-date-day')
+        if (anyDate) {
+            anyDate.addEventListener('click', (e) => this.dayClick(anyDate, id))
         }
     }
 

@@ -5,8 +5,8 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title></title>
-        <link rel='stylesheet' href='https://cdn.jsdelivr.net/gh/danruggi/datepicker@main/css/deskyCal.css' onload="this.media='all'">
-        <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/danruggi/datepicker@main/js/deskyCal.js"></script>
+        <link rel='stylesheet' href='../css/deskyCal.css' onload="this.media='all'">
+        <script type="text/javascript" src="../js/deskyCal.js"></script>
 
     <style>
         .desky-cal-parent {
@@ -20,7 +20,7 @@
             --deskycal-border-width: 5px;
             --deskycal-border-radius: 40px;
             --deskycal-border-color: #02ff00;
-            --deskycal-font-size: 4vh;
+            --deskycal-font-size: 1.2em;
             --deskycal-line-height: 2rem;
             --deskycal-width-single: 30vw;
             --deskycal-width-double: 700px;
@@ -36,7 +36,7 @@
 
     <script>
         const deskyOpts = {
-          'myID': {},
+          'myID': {anyDate: true},
           'myID2': {}
         };
         const deskyCalendar = new DeskyCalendar(deskyOpts);
