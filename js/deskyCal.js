@@ -156,7 +156,7 @@ class DeskyCalendar {
 
         const nextInputId = this.options[id].nextInput
         if (nextInputId) {
-            this.options[nextInputId].disabled_before = defaultDate;
+            this.options[nextInputId].disableBefore = defaultDate;
             this.options[nextInputId].defaultDate = defaultDate;
         }
     }
@@ -286,13 +286,14 @@ class DeskyCalendar {
             tid = `calsel_${curr_year}_${humanCurrMonth}_${tdate.getDate()}`;
             let extraClass = "";
             if (todayTid === tid) extraClass = "today";
+
             // Disabled before
-            if (this.options[id].disabled_before) {
-                if (tdate.getTime() < this.options[id].disabled_before.getTime()) extraClass = "disabled";
+            if (this.options[id].disableBefore) {
+                if (tdate.getTime() < this.options[id].disableBefore.getTime()) extraClass = "disabled";
             }
             // Disabled after
-            if (this.options[id].disabled_after) {
-                if (tdate.getTime() > this.options[id].disabled_after.getTime()) extraClass = "disabled";
+            if (this.options[id].disableAfter) {
+                if (tdate.getTime() > this.options[id].disableAfter.getTime()) extraClass = "disabled";
             }
 
             out += `<span data-day='${tid}' class='curr-month cal-sel-day ${extraClass}'>
@@ -434,11 +435,11 @@ class DeskyCalendar {
         const centerDate = this.calendars[id].centerDate
 
         if (centerDate) {
-            this.options[nextInputId].disabled_before = centerDate;
+            this.options[nextInputId].disableBefore = centerDate;
             this.calendars[nextInputId].centerDate = centerDate;
             this.calendars[nextInputId].newInput.value = this.formatDateToLocal(centerDate)
         } else {
-            this.options[nextInputId].disabled_before = null
+            this.options[nextInputId].disableBefore = null
             this.calendars[nextInputId].centerDate = null
             this.calendars[nextInputId].newInput.value = this.formatDateToLocal(new Date());
         }
