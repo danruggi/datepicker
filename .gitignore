@@ -1,0 +1,13 @@
+tmp_images/
+deskyDB/
+composer/
+certbot/
+deskyPub/
+
+nginx_deskydoo.conf
+desky/sql/
+
+.git_local_repo_credentials
+
+deskydoo/fe/articles/*
+!deskydoo/fe/articles/*php
