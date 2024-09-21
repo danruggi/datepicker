@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title></title>
+        <link rel='stylesheet' href='https://cdn.jsdelivr.net/gh/danruggi/datepicker@v5.0/css/deskyCal.css' onload="this.media='all'">
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/danruggi/datepicker@v5.0/js/deskyCal.js"></script>
+
+    <style>
+        .desky-cal-parent {
+            --deskycal-main-color: #02ff00;
+            --deskycal-today-bg-color: #216c20;
+            --deskycal-today-right-color: #fff;
+            --deskycal-today-left-hover-color: #99ff98;
+            --deskycal-base-bg-color: #000000;
+            --deskycal-dates-color: #bbffbb;
+            --deskycal-disabled-dates-color: #285c27;
+            --deskycal-border-width: 5px;
+            --deskycal-border-radius: 40px;
+            --deskycal-border-color: #02ff00;
+            --deskycal-font-size: 4vh;
+            --deskycal-line-height: 2rem;
+            --deskycal-width-single: 30vw;
+            --deskycal-width-double: 700px;
+        }
+    </style>
+    </head>
+    <body>
+
+        <input id='myID'>
+        <input id='myID2'>
+    </body>
+
+
+    <script>
+        const deskyOpts = {
+          'myID': {},
+          'myID2': {}
+        };
+        const deskyCalendar = new DeskyCalendar(deskyOpts);
+
+    </script>
+</html>
+
+

@@ -134,7 +134,7 @@ class DeskyCalendar {
         // Create a new parent container for this specific input
         const newParent = document.createElement('div');
         newParent.id = `desky-added-parent-${id}`;
-        newParent.className = 'desky-cal-parent';
+        newParent.classList.add('desky-cal-parent', 'deskycal');
         newParent.dataset.origId = id;
 
         newParent.appendChild(newInput);
