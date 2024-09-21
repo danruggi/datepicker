@@ -10,20 +10,18 @@
         <link rel='stylesheet' href='https://cdn.jsdelivr.net/gh/danruggi/datepicker@main/css/deskyCal.css' onload="this.media='all'">
 
         <!-- Include JS -->
-        <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/danruggi/datepicker@main/dist/desky_cal.min.js"></script>
+        <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/danruggi/datepicker@main/dist/desky_cal.min.js"></script> -->
+        <script type="text/javascript" src="../dist/desky_cal.min.js"></script>
 
     </head>
     <body>
-
         <input id='myID'>
-        <input id='myID2'>
     </body>
 
 
     <script>
         const deskyOpts = {'myID': {anyDate: true}};
-        const deskyCalendar = new DeskyCalendar(deskyOpts);
-
+        new DeskyCalendar(deskyOpts);
     </script>
 </html>
 
