@@ -34,10 +34,10 @@ Easy usage:
 <input id='unique_id'>
 ```  
   
-3. Init the calendar with
+3. Init the calendar with a json containing all the inputs and the options
 ```
 <script>
- initDeskyCal(unique_id);
+    new DeskyCalendar({"unique_id": {}})
 </script>
 ```
 
@@ -53,51 +53,63 @@ Easy usage:
 Two column is default Just call the function passing just the id
 ```
 // Just one parameter
-initDeskyCal("calendar_date_selector1");
+const calOptions = {'unique_id': {mode: 'double'}}
+new DeskyCalendar(calOptions)
+```
 
-// Or Passing the "double" it's the same
-initDeskyCal("calendar_date_selector1", "double");
+###### Example 2: Call more
+
+```
+const calOptions = {
+    'unique_id_1': {mode: 'double'}
+    'unique_id_2': {mode: 'double', disableBefore: d2}
+    'unique_id_3': {mode: 'double', nextInput: 'unique_id_4'}
+    'unique_id_4': {mode: 'single', anyDate: true}
+}
+new DeskyCalendar(calOptions)
 ```
 
 
-
-##### Example 2: One Column
+##### Example 3: One Column
 One column pass single as second parmeter
 ```
-initDeskyCalendar("calendar_date_selector2", "single");
+// Just one parameter
+const calOptions = {'unique_id': {}}
+new DeskyCalendar(calOptions)
 ```
   
-##### Example 3: Specify date
+##### Example 4: Specify date
 Pass a date as third parameter
 ```
-//Create a date const d = Date.parse('04 Dec 2025 00:12:00 GMT'); initDeskyCalendar("calendar_date_selector3", null, d);
-calendar_date_selector3
+//Create a date
+const d = new Date(Date.parse('04 Dec 2025 00:12:00 GMT'));
+const calOptions = {'unique_id': {defaultDate: d}}
+new DeskyCalendar(calOptions)
 ```
   
-##### Example 4: "Any Date"
+##### Example 5: "Any Date"
 Add a "Any Date" button to leave some free choice
 Generally useful in filters and reports
 Set 4th parameter as true
 ```
-//Set true the 4th parameter initDeskyCalendar("calendar_date_selector4", null, d, true);
+//Set anyDate
+const calOptions = {'unique_id': {anyDate: true}}
+new DeskyCalendar(calOptions)
 ```
 
 ##### Example 5: Range
 Range options Specify the next ID, and clicking on the first input,
 Automatically disable dates in the second input
 **Use the single mode**
-
 ```
 //Set the 5th parameter as the ID of the "other" input
 //Use the "single" mode
-initDeskyCalendar("calendar_date_selector5", "single", null, null, "calendar_date_selector6");
+const calOptions = {
+    'unique_id_1': {mode: 'single', anyDate: true, nextInput: 'unique_id_2'},
+    'unique_id_2': {mode: 'single', anyDate: true},
+}
+new DeskyCalendar(calOptions)
 
-initDeskyCalendar("calendar_date_selector6", "single");
-
-//Or use in conjuncton with "any date" or other options
-initDeskyCalendar("calendar_date_selector7", "single", null, true, "calendar_date_selector8");
-
-initDeskyCalendar("calendar_date_selector8", "single", null, true);
 ```
 
 ##### Example 6: Disable Before or After Date
@@ -112,11 +124,12 @@ const d3 = new Date();
 d2.setTime(d2.getTime()-(2*3600*24*1000));
 d3.setTime(d3.getTime()+(10*3600*24*1000));
 
-//Set a date at 6th or 7th parameter
-initDeskyCalendar("calendar_date_selector9", "single", null, null, null, d2);
+const calOptions = {
+    'calendar_date_selector9': {mode: 'single', disableBefore: d2},
+    'calendar_date_selector10': {mode: 'single', disableBefore: d2, disableAfter: d3},
+}
+new DeskyCalendar(calOptions)
 
-initDeskyCalendar("calendar_date_selector10", "single", null, null, null, d2, d3);
-calendar_date_selector9
 ```
   
 ##### Example 7: Scroll into view
@@ -124,7 +137,9 @@ Add a scroll into on show.
 Generally useful when calendar goes out of borders on show up
 Set 8th parameter as true
 ```
-//Set true the 8th parameter initDeskyCalendar("calendar_date_selector11", null, null, null, null, null, null, true);
+//Set true the 8th parameter
+calOptions = {"calendar_date_selector11": {scroll: true}}
+new DeskyCalendar(calOptions)
 ```
   
 ##### Example 8: CallBack function
@@ -132,7 +147,9 @@ Specify a call back function on day click
 in 9th parameter.
 Try to select a date to see the result
 ```
-//Set a external function on 9th parameter initDeskyCalendar("calendar_date_selector5", null, null, null, call_back_function);
+//Set a external function on 9th parameter
+calOptions = {"calendar_date_selector12": {mode: 'double', callback: this_is_callback}}
+new DeskyCalendar(calOptions)
 ```
 
 ### Check the Demo Page >> [Demo Page](https://danruggi.github.io/datepicker/)

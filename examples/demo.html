@@ -718,7 +718,7 @@
     const deskyOpts = {
         /// Call the init Calendar
         /// Example 1
-        'calendar_date_selector1': {},
+        'calendar_date_selector1': {mode: "double"},
 
         /// Example 2
         'calendar_date_selector2': {mode: 'single'},
@@ -739,50 +739,27 @@
         'calendar_date_selector7': {mode: 'single', nextInput: 'calendar_date_selector8'},
         'calendar_date_selector8': {mode: 'single'},
 
+        /// Example 6
+        //// disable before after date
+        'calendar_date_selector9': {mode: 'single', disableBefore: d2},
+        'calendar_date_selector10': {mode: 'single', disableBefore: d2, disableAfter: d3},
+
+        /// Example 7
+        //// Scroll
+        "calendar_date_selector11": {scroll: true},
+
+        // Call Back
+        "calendar_date_selector12": {mode: 'double', callback: this_is_callback},
+
+        // Colors
+        "calendar_date_selector13": {},
+        "calendar_date_selector14": {},
+        "calendar_date_selector15": {},
+
     };
-
-    const deskyCalendar = new DeskyCalendar(deskyOpts);
-
-
-    /// Example 6
-    //// disable before after date
-    const d2 = new Date();
-    const d3 = new Date();
-    d2.setTime(d2.getTime()-(2*3600*24*1000));  
-    d3.setTime(d3.getTime()+(10*3600*24*1000)); 
-    initDeskyCalendar("calendar_date_selector9", "single", null, null, null, d2);   
-    initDeskyCalendar("calendar_date_selector10", "single", null, null, null, d2, d3);  
-
-    /// Example 7
-    //// Scroll
-    initDeskyCalendar("calendar_date_selector11", null, null, null, null, null, null, true);    
+    new DeskyCalendar(deskyOpts);
 
 
-    /// Example 8
-    //// call back
-    initDeskyCalendar("calendar_date_selector12", "double", null, null, null, null, null, null, call_back_function);
-    
-    function call_back_function(d) {
-        /// accept the returned date as only argument
-        // calc date difference
-        let now=new Date();
-        let diff=d.getTime()-now.getTime();
-        let days=Math.round(diff/(3600*24*1000));
-        let out = "Date selected "+Math.abs(days)+" days ";
-        (days<0) ? out+="in the past" : (days==0) ? out="You selected Today" : out+="in the future";
-        document.getElementById('calendar_date_selector12_out').innerText=out;
-    }
-
-
-    /// Example 9
-    //// colors blue
-    initDeskyCalendar("calendar_date_selector13");
-    
-    //// colors pink
-    initDeskyCalendar("calendar_date_selector14");
-    
-    //// colors pink
-    initDeskyCalendar("calendar_date_selector15", "single");
 
     //// Scroll Title Move
     document.addEventListener('scroll', onScroll);
