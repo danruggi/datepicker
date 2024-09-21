@@ -415,7 +415,7 @@ class DeskyCalendar {
         // call callback just if function is defined
         if (typeof this.options[id].callback === 'function') {
             console.log("Call Back Function");
-            this.options[id].callback.callback(centerDate);
+            this.options[id].callback(this.calendars[id].centerDate);
         }
 
         if (this.options[id].nextInput != null) {
