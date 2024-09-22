@@ -1,4 +1,4 @@
-# datepicker deskycal
+# vanilla datepicker
 
   
    
@@ -20,7 +20,7 @@ Click on the input fields downthere to see the examples
 🤏 Minified version is just 7.7K
 ✌️ Just include 2 files and call many times you need in a page  
   
-Easy usage:  
+### Usage:
 
 1. Include CSS and JS  
 
@@ -43,7 +43,7 @@ Easy usage:
 
 ![Screenshot](https://danruggi.github.io/datepicker/assets/screen1.png)
 
-### Easy CSS edit with css vars. 
+### CSS edit with css vars.
 ![Screenshot Colors](https://danruggi.github.io/datepicker/assets/screenColors.webp) 
 ### Check the Demo Page >> [Demo Page](https://danruggi.github.io/datepicker/)
 
