@@ -47,6 +47,59 @@ Click on the input fields downthere to see the examples
 ![Screenshot Colors](https://danruggi.github.io/datepicker/assets/screenColors.webp) 
 ### Check the Demo Page >> [Demo Page](https://danruggi.github.io/datepicker/)
 
+### How to
+For Latest version, use:
+```
+<!-- Full code -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/danruggi/datepicker/js/deskyCal.js"></script>
+
+<!-- Minified -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/danruggi/datepicker/dist/desky_cal.min.js"></script>
+```
+
+For specific version (to avoid changes/updates/untested behaviours), to stick to this version, use
+```
+<!-- Full code -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/danruggi/datepicker@v5.5/js/deskyCal.js"></script>
+
+<!-- Minified -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/danruggi/datepicker@v5.5/dist/desky_cal.min.js"></script>
+```
+
+
+### Options
+```
+// Updated for v5.5
+const calOptions = {
+    'unique_id': {
+        // single or double, default: single
+        mode: 'double',
+
+        // set a begin date, date is a Date() object, default: new Date()
+        defaultDate: d,
+
+        // enable "anyDate" button, useful in reports, default: false
+        anyDate: true,
+
+        // It will disable dates before the selected dates in the next input
+        nextInput: 'next_unique_id',
+
+        // disable before a date, d1 must be a Date() object
+        disableBefore: d1,
+
+        // disable after a date, d2 must be a Date() object
+        disableAfter: d2,
+
+        // Scroll to the calendar object if out of field of view, default: false
+        scroll: true,
+
+        // callback, invoke a function on day click.
+        // function name must be specified without quotes and musd be a valid js function
+        callback: this_is_callback,
+    }
+}
+```
+
 ### Examples  
 
 ###### Example 1: Two columns
@@ -103,7 +156,6 @@ Automatically disable dates in the second input
 **Use the single mode**
 ```
 //Set the 5th parameter as the ID of the "other" input
-//Use the "single" mode
 const calOptions = {
     'unique_id_1': {mode: 'single', anyDate: true, nextInput: 'unique_id_2'},
     'unique_id_2': {mode: 'single', anyDate: true},
@@ -137,7 +189,7 @@ Add a scroll into on show.
 Generally useful when calendar goes out of borders on show up
 Set 8th parameter as true
 ```
-//Set true the 8th parameter
+//Set true
 calOptions = {"calendar_date_selector11": {scroll: true}}
 new DeskyCalendar(calOptions)
 ```
@@ -147,7 +199,7 @@ Specify a call back function on day click
 in 9th parameter.
 Try to select a date to see the result
 ```
-//Set a external function on 9th parameter
+//Set a external function
 calOptions = {"calendar_date_selector12": {mode: 'double', callback: this_is_callback}}
 new DeskyCalendar(calOptions)
 ```

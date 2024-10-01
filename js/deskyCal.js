@@ -1,6 +1,7 @@
 ////////////////// ***** ////////////////////
 // desky calendar Javascript
 // by Daniele Rugginenti
+// 2024 10 01 ver. 5.5   -- Stable tested version
 // 2024 10 01 ver. 5.2   -- Minor fixes
 // 2024 09 20 ver. 5.0   -- Completely rewritten to accept an option dict and using classes
 // <<<<<>>>>>
