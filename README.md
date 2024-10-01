@@ -25,8 +25,8 @@ Click on the input fields downthere to see the examples
 1. Include CSS and JS  
 
 ```
-<link rel='stylesheet' href='https://cdn.jsdelivr.net/gh/danruggi/datepicker/css/deskyCal.css'>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/danruggi/datepicker/js/deskyCal.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/danruggi/datepicker@v5.5/dist/desky_cal.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/danruggi/datepicker@v5.5/js/deskyCal.js"></script>
 ```
   
 2. Create any field with an unique ID in the page  
