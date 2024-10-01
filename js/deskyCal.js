@@ -1,6 +1,7 @@
 ////////////////// ***** ////////////////////
 // desky calendar Javascript
 // by Daniele Rugginenti
+// 2024 10 01 ver. 5.2   -- Minor fixes
 // 2024 09 20 ver. 5.0   -- Completely rewritten to accept an option dict and using classes
 // <<<<<>>>>>
 // 2022 07 27 ver. 4.3.1 -- Any input placeholder Any
@@ -113,7 +114,7 @@ class DeskyCalendar {
             return;
         }
         inputs.forEach(id => this.setupCalendar(id));
-        console.log(this.options)
+        // console.log(this.options)
 
     }
 
@@ -174,8 +175,8 @@ class DeskyCalendar {
     }
 
     insertCalSchema(id) {
-        console.log(this.calendars[id])
-        console.log(this.options[id])
+        // console.log(this.calendars[id])
+        // console.log(this.options[id])
 
         // Build the HTML structure
         const calendarHTML = buildCalendarHTML(id, this.options[id]);
@@ -407,14 +408,14 @@ class DeskyCalendar {
             centerDate.setFullYear(idA[1]);
             centerDate.setMonth(idA[2]-1);
             centerDate.setDate(idA[3]);
-            console.log(`Center Date: ${centerDate}`)
+            // console.log(`Center Date: ${centerDate}`)
             this.calendars[id].newInput.value = this.formatDateToLocal(centerDate)
             this.calendars[id].centerDate = centerDate
         }
 
         // call callback just if function is defined
         if (typeof this.options[id].callback === 'function') {
-            console.log("Call Back Function");
+            // console.log("Call Back Function");
             this.options[id].callback(this.calendars[id].centerDate);
         }
 
@@ -447,7 +448,7 @@ class DeskyCalendar {
     }
     closeCalSel(event, id) {
         if (!id) {
-            console.log("Missing id");
+            console.error("Missing id");
             return;
         }
 
