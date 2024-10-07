@@ -19,7 +19,9 @@ Click on the input fields downthere to see the examples
 📎 Execute external function on click  
 🤏 Minified version is just 7.7K
 ✌️ Just include 2 files and call many times you need in a page  
-  
+📅 Aria Label
+⌨️ Key Navigation support
+
 ### Usage:
 
 1. Include CSS and JS  
@@ -65,6 +67,17 @@ For specific version (to avoid changes/updates/untested behaviours), to stick to
 <!-- Minified -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/danruggi/datepicker@v5.5/dist/desky_cal.min.js"></script>
 ```
+
+### Key navigation
+Available in version 6.0 beta
+- Tab: Select the input field
+- ENTER/SPACEBAR on input: Open Calendar
+- ESC: Close Calendar
+- PgUP/PgDOWN: Next/Prev month
+- LEFT/RIGHT arrows: Next/Prev Day
+- DOWN arrow: Select AnyDate if avail
+- UP arrow: Back to daylist
+- ENTER on a day: Select Day/AnyDate
 
 
 ### Options
