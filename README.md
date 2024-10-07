@@ -22,6 +22,7 @@ Click on the input fields downthere to see the examples
 📅 Aria Label
 ⌨️ Key Navigation support
 
+
 ### Usage:
 
 1. Include CSS and JS  
