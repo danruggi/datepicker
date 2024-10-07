@@ -17,11 +17,11 @@ Click on the input fields downthere to see the examples
 🔒 Disable Dates  
 💡 Relates 2 datepickers for range  
 📎 Execute external function on click  
-🤏 Minified version is just 7.7K
+🤏 Minified version is just 7.7K  
 ✌️ Just include 2 files and call many times you need in a page  
-📅 Aria Label
-⌨️ Key Navigation support
-
+📅 Aria Label  
+⌨️ Key Navigation support  
+  
 ### Usage:
 
 1. Include CSS and JS  
