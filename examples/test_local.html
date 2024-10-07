@@ -1,0 +1,34 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Test LOCAL MIN version</title>
+
+        <!-- deskyCal Include CSS -->
+        <link rel='stylesheet' href='../css/deskyCal.css' onload="this.media='all'">
+
+        <!-- Include JS -->
+        <script type="text/javascript" src="../js/deskyCal.js"></script>
+
+    </head>
+    <body>
+        <input id='myID'>
+        <input id='myID2'>
+        <input id='myID3'>
+        <input id='myID4'>
+    </body>
+
+
+    <script>
+        const deskyOpts = {
+            'myID': {anyDate: true},
+            'myID2': {nextInput: 'myID3'},
+            'myID3': {}
+        };
+        new DeskyCalendar(deskyOpts);
+    </script>
+</html>
+
+

@@ -1,6 +1,8 @@
 ////////////////// ***** ////////////////////
 // desky calendar Javascript
 // by Daniele Rugginenti
+// 2024 10 01 ver. 6.0b  -- Key navigation Support (Beta)
+// 2024 10 01 ver. 5.6   -- Added support for Aria
 // 2024 10 01 ver. 5.5   -- Stable tested version
 // 2024 10 01 ver. 5.2   -- Minor fixes
 // 2024 09 20 ver. 5.0   -- Completely rewritten to accept an option dict and using classes
@@ -32,9 +34,10 @@ function generateDowList() {
 
     for (let i = 1; i <= 21; i++) {
         startDate.setDate(i);
-        const dowChar = startDate.toLocaleString('default', { weekday: 'long' }).charAt(0);
+        const dowFull = startDate.toLocaleString('default', { weekday: 'long' });
+        const dowChar = dowFull.charAt(0);
         if (dows.length !== 0 || startDate.getDay() === 0) {
-            dows += `<span>${dowChar}</span>`;
+            dows += `<span aria-label='${dowFull}'>${dowChar}</span>`;
         }
         if (startDate.getDay() === 6 && dows.length !== 0) {
             break;
@@ -52,6 +55,7 @@ function buildCalendarHTML(id, options) {
     return `
         <div class='desky-dark-container desky-cal-hidden'>
             <div class='desky-calendar-container ${extraClass}' id='deskycal_${id}'>
+                <h2 id="Chose Date - for ${id}" class="desky-cal-hidden">Calendar selector for ${id}</h2>
                 <span class='desky-cal-close' id='desky-close-${id}'>X</span>
                 ${mode === 'double' ? buildLeftSectionHTML(id) : ''}
                 <div class='right'>
@@ -131,6 +135,8 @@ class DeskyCalendar {
         const newInput = oldInput.cloneNode(true);
         newInput.readOnly = true;
         newInput.dataset.origId = id;
+        newInput.setAttribute('aria-label', 'Select date');
+        newInput.setAttribute('role', 'button'); // since it acts like a button
         newInput.addEventListener('click', e => this.calSelShowUp(e, id));
 
         // Create a new parent container for this specific input
@@ -147,7 +153,17 @@ class DeskyCalendar {
             newInput: newInput,
             newParent: newParent,
             calendarWrapper: null, // Initialize as null for later use
+            handleKeyShowUp: null,
+            shownUp: false,
         };
+        // console.log(this.calendars)
+
+        // Add event listener to close calendar on outside click
+        // Add the keydown event listener for Enter or Spacebar
+        const handleKeyShowUp = (e) => {if (!this.calendars[id].shownUp && (e.key === 'Enter' || e.key === ' ')) {e.preventDefault(); this.calSelShowUp(e, id); } };
+        this.calendars[id].handleKeyShowUp = handleKeyShowUp;
+        newInput.addEventListener('keydown', handleKeyShowUp);
+
     }
 
     initializeDate(id) {
@@ -190,6 +206,8 @@ class DeskyCalendar {
 
         this.calendars[id].calendarContainer = this.calendars[id].calendarWrapper.querySelector('.desky-calendar-container')
         this.calendars[id].calendarContainer.dataset.origId = id
+        this.calendars[id].calendarContainer.setAttribute('role', 'dialog');
+        this.calendars[id].calendarContainer.setAttribute('aria-labelledby', `Choose date for id:${id}`);
 
         // Initialize the days of the week (DOW) list
         const dowList = generateDowList();
@@ -199,20 +217,22 @@ class DeskyCalendar {
         }
 
         // Add event listener to the close button "X"
-
         this.calendars[id].closeButton = this.calendars[id].newParent.querySelector('.desky-cal-close')
         this.calendars[id].closeButton.dataset.origId = id
+        this.calendars[id].closeButton.setAttribute('aria-label', 'Close calendar');
         this.calendars[id].closeButton.addEventListener('click', (e) => this.closeCalSel(e, id));
 
         // Add event listener to next and prev months
         const nextArrow = this.calendars[id].newParent.querySelector('.sel-next-month')
         if (nextArrow) {
+            nextArrow.setAttribute('aria-label', 'Next month');
             nextArrow.addEventListener('click', (e) => this.calSelNextMonth(id))
         }
 
         // Add event listener to next and prev months
         const prevArrow = this.calendars[id].newParent.querySelector('.sel-prev-month')
         if (prevArrow) {
+            prevArrow.setAttribute('aria-label', 'Previous month');
             prevArrow.addEventListener('click', (e) => this.calSelPrevMonth(id))
         }
 
@@ -264,6 +284,8 @@ class DeskyCalendar {
         // Right - month name
         monthNameSpan.innerText = `${currMonthName} ${first.getFullYear()}`;
         monthNumSpan.innerText = `${curr_month}_${curr_year}`; // hidden
+        monthNameSpan.setAttribute('aria-label', `Currently showing ${currMonthName} ${curr_year}`);
+
 
         let humanCurrMonth = curr_month + 1;
         let numFirst = first.getDate();
@@ -276,7 +298,7 @@ class DeskyCalendar {
 
         // Past month from last Sunday
         for (let i = lastLast - dowFirst + 1; i <= lastLast; i++) {
-            out += `<span class='last-month cal-sel-day'>
+            out += `<span class='last-month cal-sel-day aria-disabled='true''>
                         ${i}
                     </span>`;
         }
@@ -287,18 +309,19 @@ class DeskyCalendar {
             tdate = new Date(tdate.setDate(i));
             tid = `calsel_${curr_year}_${humanCurrMonth}_${tdate.getDate()}`;
             let extraClass = "";
+            let extraAttr = ""
             if (todayTid === tid) extraClass = "today";
 
             // Disabled before
             if (this.options[id].disableBefore) {
-                if (tdate.getTime() < this.options[id].disableBefore.getTime()) extraClass = "disabled";
+                if (tdate.getTime() < this.options[id].disableBefore.getTime()) {extraClass = "disabled"; extraAttr = "aria-disabled='true'"}
             }
             // Disabled after
             if (this.options[id].disableAfter) {
-                if (tdate.getTime() > this.options[id].disableAfter.getTime()) extraClass = "disabled";
+                if (tdate.getTime() > this.options[id].disableAfter.getTime()) {extraClass = "disabled"; extraAttr = "aria-disabled='true'"}
             }
 
-            out += `<span data-day='${tid}' class='curr-month cal-sel-day ${extraClass}'>
+            out += `<span data-day='${tid}' class='curr-month cal-sel-day ${extraClass}' role='button' ${extraAttr} aria-label='Select day ${this.formatDateToLocal(tdate)}'>
                         ${tdate.getDate()}
                     </span>`;
         }
@@ -308,7 +331,7 @@ class DeskyCalendar {
             tdate = new Date();
             tdate.setDate(i);
             tdate.setMonth(curr_month + 1);
-            out += `<span class='next-month cal-sel-day'>
+            out += `<span class='next-month cal-sel-day aria-disabled='true'>
                         ${tdate.getDate()}
                     </span>`;
         }
@@ -323,7 +346,6 @@ class DeskyCalendar {
         this.addDayClickListeners(dayListContainer, id)
     }
 
-
     // Function to attach event listeners to all .cal-sel-day elements
     addDayClickListeners(dayListContainer, id) {
         // Select all .cal-sel-day elements inside dayListContainer
@@ -334,6 +356,7 @@ class DeskyCalendar {
             day.addEventListener('click', (e) => this.dayClick(day, id));
         });
     }
+
 
     calSelPrevMonth(id) {
         let currA = this.calendars[id].calendarContainer.querySelector('.desky-cal-month-num').innerText.split("_");
@@ -387,12 +410,18 @@ class DeskyCalendar {
         }
         this.calSelDrawDays(id, currYear, currMonth);
 
+        this.calendars[id].shownUp = true
+
         // Add event listener to close calendar on outside click
         const handleCloseCalSel = (e) => this.closeCalSel(e, id);
         this.calendars[id].handleCloseCalSel = handleCloseCalSel; // Store the handle
-
         document.addEventListener('mouseup', handleCloseCalSel);
+
+        const handleKeyNavigation = (e) => this.handleKeyNavigation(e, id);
+        this.calendars[id].handleKeyNavigation = handleKeyNavigation; // Store the handle
+        document.addEventListener('keydown', handleKeyNavigation);
     }
+
 
     dayClick(element, id) {
         // console.log(id);
@@ -403,6 +432,7 @@ class DeskyCalendar {
         let centerDate = new Date();
 
         if (idA[1] == "anyDate") {
+            console.log("Clicked Anydate")
             this.calendars[id].newInput.value = "Any Date";
             this.calendars[id].centerDate = null
         } else {
@@ -447,6 +477,7 @@ class DeskyCalendar {
         }
 
     }
+
     closeCalSel(event, id) {
         if (!id) {
             console.error("Missing id");
@@ -454,25 +485,102 @@ class DeskyCalendar {
         }
 
         const closeButton = this.calendars[id].closeButton;
+        const shouldClose = event && (
+            (closeButton && closeButton.contains(event.target)) ||
+            !this.calendars[id].calendarWrapper.contains(event.target)
+        );
 
-        // If event exists and click is on the close button, close the calendar
-        if (event && closeButton && closeButton.contains(event.target)) {
+        if (shouldClose || !event) {
             this.calendars[id].calendarWrapper.classList.add('desky-cal-hidden');
             document.removeEventListener('mouseup', this.calendars[id].handleCloseCalSel);  // Use stored handle
-            return; // Exit the function early
+            document.removeEventListener('keydown', this.calendars[id].handleKeyNavigation);
+            this.calendars[id].shownUp = false
+        }
+    }
+
+    // KEY NAVIGATION
+    handleKeyNavigation(event, id) {
+
+        const { key } = event;
+        let selectedDay = this.calendars[id].calendarContainer.querySelector('.cal-sel-day.selected');
+
+        // If no day is currently selected, start with today's date or the first day
+        if (!selectedDay) {
+            selectedDay = this.calendars[id].calendarContainer.querySelector('.cal-sel-day.today') ||
+                          this.calendars[id].calendarContainer.querySelector('.curr-month.cal-sel-day');
+            selectedDay.classList.add('selected');
+        }
+        // console.log(selectedDay)
+
+        let selectedDate = new Date(parseInt(selectedDay.dataset.day.split('_')[1]), parseInt(selectedDay.dataset.day.split('_')[2]) - 1, parseInt(selectedDay.dataset.day.split('_')[3]));
+        // console.log(currentDate)
+
+        switch (key) {
+            case 'Escape':
+                this.closeCalSel(null, id);
+                return
+            case 'ArrowRight':  // Move to the next day
+                selectedDate.setDate(selectedDate.getDate() + 1);
+                break;
+            case 'ArrowLeft':   // Move to the previous day
+                selectedDate.setDate(selectedDate.getDate() - 1);
+                break;
+            case 'ArrowDown':   // Move to AnyDate
+                if (!this.options[id].anyDate) {
+                    return
+                }
+                this.calendars[id].selectedDate = selectedDate
+                this.selectNewDay(id, null); // cut down the execution and go to anyDate, setting newDate at null
+                return;
+            case 'ArrowUp':
+                if (!this.options[id].anyDate) {
+                    return
+                }
+                selectedDate = this.calendars[id].selectedDate
+                break;
+            case 'PageUp':      // Move to the previous month
+                this.calSelNextMonth(id);
+                return;
+            case 'PageDown':    // Move to the next month
+                this.calSelPrevMonth(id);
+                return;
+            case "Enter":
+                this.dayClick(selectedDay, id)
+            default:
+                return;  // Ignore other keys
         }
 
-        // If event exists and click is outside the calendar wrapper, close the calendar
-        if (event && !this.calendars[id].calendarWrapper.contains(event.target)) {
-            this.calendars[id].calendarWrapper.classList.add('desky-cal-hidden');
-            document.removeEventListener('mouseup', this.calendars[id].handleCloseCalSel);  // Use stored handle
-            return; // Exit the function early
+        // Update calendar view if the month has changed
+        if (selectedDate.getMonth() !== parseInt(selectedDay.dataset.day.split('_')[2]) - 1) {
+            this.calSelDrawDays(id, selectedDate.getFullYear(), selectedDate.getMonth());
         }
 
-        // Handle non-event close scenarios (e.g., when called from setTimeout)
-        if (!event) {
-            this.calendars[id].calendarWrapper.classList.add('desky-cal-hidden');
-            document.removeEventListener('mouseup', this.calendars[id].handleCloseCalSel);  // Use stored handle
+        // Select the new day
+        this.selectNewDay(id, selectedDate);
+    }
+
+    selectNewDay(id, newDate) {
+        // Deselect the previously selected day
+        const prevSelectedDay = this.calendars[id].calendarContainer.querySelector('.curr-month.selected');
+        if (prevSelectedDay) {
+            prevSelectedDay.classList.remove('selected');
+        }
+
+        let newDayElement = null; // Declare newDayElement outside the conditionals
+
+        // Handle anyDate option if enabled and newDate is not provided
+        if (!newDate) {
+            newDayElement = this.calendars[id].calendarContainer.querySelector('.curr-month.any-date-day');
+        } else {
+            newDayElement = this.calendars[id].calendarContainer.querySelector(
+                `[data-day='calsel_${newDate.getFullYear()}_${newDate.getMonth() + 1}_${newDate.getDate()}']`
+            );
+        }
+
+        // console.log(newDayElement)
+        // Add selected class to the new day (if the newDayElement exists)
+        if (newDayElement) {
+            newDayElement.classList.add('selected');
         }
     }
 

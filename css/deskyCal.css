@@ -6,6 +6,7 @@
   --deskycal-today-bg-color: #763000;
   --deskycal-today-right-color: #eee;
   --deskycal-today-left-hover-color: #bbb;
+  --deskycal-day-selected-color: #fbff50;
   --deskycal-base-bg-color: #0c0d2b;
   --deskycal-dates-color: #ddd ;
   --deskycal-disabled-dates-color: #444;
@@ -174,6 +175,12 @@
 .desky-calendar-container .right .clicked {
     background-color: var(--deskycal-main-color);
     color: #333 !important;
+    border-radius: 7px;
+}
+
+.desky-calendar-container .right .selected {
+    background-color: var(--deskycal-day-selected-color);
+    color: #0d0d2a !important;
     border-radius: 7px;
 }
 
