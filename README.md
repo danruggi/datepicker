@@ -10,17 +10,17 @@ Derivate from a hotels software at [deskydoo](https://www.deskydoo.com)
 
 Click on the input fields downthere to see the examples  
 
-📳 Full Responsive   
-🌱 Double / Single Format  
-⚙️ Set The Date  
-🍀 Add "Any Date" Option  
-🔒 Disable Dates  
-💡 Relates 2 datepickers for range  
-📎 Execute external function on click  
-🤏 Minified version is just 7.7K  
-✌️ Just include 2 files and call many times you need in a page  
-📅 Aria Label  
-⌨️ Key Navigation support  
+- 📳 Full Responsive
+- 🌱 Double / Single Format
+- ⚙️ Set The Date
+- 🍀 Add "Any Date" Option
+- 🔒 Disable Dates
+- 💡 Relates 2 datepickers for range
+- 📎 Execute external function on click
+- 🤏 Minified version is just 7.7K
+- ✌️ Just include 2 files and call many times you need in a page
+- 📅 Aria Label
+- ⌨️ Key Navigation support
   
 ### Usage:
 
@@ -43,11 +43,13 @@ Click on the input fields downthere to see the examples
 </script>
 ```
 
+
 ![Screenshot](https://danruggi.github.io/datepicker/assets/screen1.png)
 
 ### CSS edit with css vars.
 ![Screenshot Colors](https://danruggi.github.io/datepicker/assets/screenColors.webp) 
 ### Check the Demo Page >> [Demo Page](https://danruggi.github.io/datepicker/)
+
 
 ### How to
 For Latest version, use:
@@ -59,13 +61,24 @@ For Latest version, use:
 <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/danruggi/datepicker/dist/desky_cal.min.js"></script>
 ```
 
-For specific version (to avoid changes/updates/untested behaviours), to stick to this version, use
+For specific version (to avoid changes/updates/untested behaviours), to stick to latest stable version, use
 ```
 <!-- Full code -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/danruggi/datepicker@v5.5/js/deskyCal.js"></script>
 
 <!-- Minified -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/danruggi/datepicker@v5.5/dist/desky_cal.min.js"></script>
+```
+
+##### Versions
+Latest - Beta with key navigation and aria controls (no minified version avail yet)
+```
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/danruggi/datepicker@v6.0b/js/deskyCal.js"></script>
+```
+
+Stable
+```
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/danruggi/datepicker@v5.5/js/deskyCal.js"></script>
 ```
 
 ### Key navigation

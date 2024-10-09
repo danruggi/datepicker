@@ -160,7 +160,7 @@ class DeskyCalendar {
 
         // Add event listener to close calendar on outside click
         // Add the keydown event listener for Enter or Spacebar
-        const handleKeyShowUp = (e) => {if (!this.calendars[id].shownUp && (e.key === 'Enter' || e.key === ' ')) {e.preventDefault(); this.calSelShowUp(e, id); } };
+        const handleKeyShowUp = (e) => {if (!this.calendars[id].shownUp && (e.key === 'Enter' || e.key === ' ')) {e.preventDefault(); this.checkAndCloseAllOpenCalendars(); this.calSelShowUp(e, id); } };
         this.calendars[id].handleKeyShowUp = handleKeyShowUp;
         newInput.addEventListener('keydown', handleKeyShowUp);
 
@@ -476,6 +476,15 @@ class DeskyCalendar {
             this.calendars[nextInputId].newInput.value = this.formatDateToLocal(new Date());
         }
 
+    }
+
+    checkAndCloseAllOpenCalendars() {
+        Object.keys(this.calendars).forEach(id => {
+            // Check your conditions here. For example:
+            if (this.calendars[id].shownUp) {
+                this.closeCalSel(null, id);
+            }
+        });
     }
 
     closeCalSel(event, id) {
