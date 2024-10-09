@@ -500,6 +500,7 @@ class DeskyCalendar {
 
     // KEY NAVIGATION
     handleKeyNavigation(event, id) {
+        event.preventDefault()
 
         const { key } = event;
         let selectedDay = this.calendars[id].calendarContainer.querySelector('.cal-sel-day.selected');
